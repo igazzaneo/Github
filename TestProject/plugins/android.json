@@ -33,6 +33,18 @@
     },
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.phonegap.helloworld"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
+    },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
+    },
+    "cordova-plugin-sqlite-2": {
+      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     }
   },
   "dependent_plugins": {
