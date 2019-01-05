@@ -37,7 +37,7 @@
     "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     },
-    "cordova-sqlite-storage": {
+    "cordova-plugin-sqlite-2": {
       "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     }
   },

@@ -5,7 +5,7 @@ var nextUser = 101;
 function initDatabase() {
 
   showMessage("In initDatabase");
-  database = window.sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
+  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
   showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
@@ -15,7 +15,7 @@ function initDatabase() {
 }
 
 function echoTest() {
-  window.sqlitePlugin.echoTest(function() {
+  sqlitePlugin.echoTest(function() {
     showMessage('Echo test OK');
   }, function(error) {
     showMessage('Echo test ERROR: ' + error.message);
@@ -23,7 +23,7 @@ function echoTest() {
 }
 
 function selfTest() {
-  window.sqlitePlugin.selfTest(function() {
+  sqlitePlugin.selfTest(function() {
     showMessage('Self test OK');
   }, function(error) {
     showMessage('Self test ERROR: ' + error.message);
