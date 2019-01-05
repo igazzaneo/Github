@@ -5,7 +5,7 @@ var nextUser = 101;
 function initDatabase() {
 
   showMessage("In initDatabase");
-  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default'});
+  database = window.sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE SampleTable (name, score)');
@@ -14,7 +14,7 @@ function initDatabase() {
 }
 
 function echoTest() {
-  sqlitePlugin.echoTest(function() {
+  window.sqlitePlugin.echoTest(function() {
     showMessage('Echo test OK');
   }, function(error) {
     showMessage('Echo test ERROR: ' + error.message);
@@ -22,7 +22,7 @@ function echoTest() {
 }
 
 function selfTest() {
-  sqlitePlugin.selfTest(function() {
+  window.sqlitePlugin.selfTest(function() {
     showMessage('Self test OK');
   }, function(error) {
     showMessage('Self test ERROR: ' + error.message);
@@ -34,6 +34,7 @@ function reload() {
 }
 
 function stringTest1() {
+  showMessage("Click...per dio!!!");
   database.transaction(function(transaction) {
     transaction.executeSql("SELECT upper('Test string') AS upperText", [], function(ignored, resultSet) {
       showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
@@ -146,8 +147,9 @@ document.addEventListener('deviceready', function() {
   $('#alert-test').click(alertTest);
   $('#echo-test').click(echoTest);
   $('#self-test').click(selfTest);
-  /*$('#reload').click(reload);
   $('#string-test-1').click(stringTest1);
+  /*$('#reload').click(reload);
+
   $('#string-test-2').click(stringTest2);
   $('#show-count').click(showCount);
   $('#add-record').click(addRecord);

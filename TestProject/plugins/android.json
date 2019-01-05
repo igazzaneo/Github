@@ -40,7 +40,7 @@
     "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     },
-    "cordova-plugin-sqlite-2": {
+    "cordova-sqlite-storage": {
       "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     }
   },
