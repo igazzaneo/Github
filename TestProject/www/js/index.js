@@ -1,3 +1,4 @@
+var myDB;
 
 var app = {
   // Application Constructor
@@ -22,6 +23,18 @@ var app = {
     alert('DB: SQLite');
     alert("Opened!!!");
 
+    myDB.transaction(function(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)');
+        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101]);
+        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
+    }, function(error) {
+      alert("error: " + error.message)
+        console.log('Transaction ERROR: ' + error.message);
+    }, function() {
+        alert("DB OK!!")
+        console.log('Populated database OK');
+    });
+
   },
   // Update DOM on a Received Event
   receivedEvent: function (id) {
@@ -34,7 +47,7 @@ app.initialize();
 //Create new table
 $("#createTable").click(function(){
     alert("Clicked!!!!.");
-    onDeviceReady();
+
     myDB.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE IF NOT EXISTS phonegap_pro (id integer primary key, title text, desc text)', [],
         function(tx, result) {
