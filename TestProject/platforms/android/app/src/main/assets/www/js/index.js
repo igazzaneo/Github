@@ -6,6 +6,7 @@ function initDatabase() {
 
   showMessage("In initDatabase");
   database = window.sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
+  showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE SampleTable (name, score)');

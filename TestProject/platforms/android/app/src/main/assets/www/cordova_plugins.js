@@ -350,15 +350,6 @@ module.exports = [
     "runs": true
   },
   {
-    "id": "cordova-plugin-inappbrowser.inappbrowser",
-    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-    "pluginId": "cordova-plugin-inappbrowser",
-    "clobbers": [
-      "cordova.InAppBrowser.open",
-      "window.open"
-    ]
-  },
-  {
     "id": "cordova-plugin-file-transfer.FileTransferError",
     "file": "plugins/cordova-plugin-file-transfer/www/FileTransferError.js",
     "pluginId": "cordova-plugin-file-transfer",
@@ -372,22 +363,6 @@ module.exports = [
     "pluginId": "cordova-plugin-file-transfer",
     "clobbers": [
       "window.FileTransfer"
-    ]
-  },
-  {
-    "id": "cordova-plugin-splashscreen.SplashScreen",
-    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-    "pluginId": "cordova-plugin-splashscreen",
-    "clobbers": [
-      "navigator.splashscreen"
-    ]
-  },
-  {
-    "id": "cordova-sqlite-storage.SQLitePlugin",
-    "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
-    "pluginId": "cordova-sqlite-storage",
-    "clobbers": [
-      "SQLitePlugin"
     ]
   }
 ];
@@ -403,10 +378,7 @@ module.exports.metadata =
   "cordova-plugin-device-orientation": "1.0.7",
   "cordova-plugin-dialogs": "1.2.1",
   "cordova-plugin-file": "6.0.1",
-  "cordova-plugin-inappbrowser": "1.3.0",
-  "cordova-plugin-file-transfer": "1.5.1",
-  "cordova-plugin-splashscreen": "3.2.2",
-  "cordova-sqlite-storage": "2.6.0"
+  "cordova-plugin-file-transfer": "1.5.1"
 };
 // BOTTOM OF METADATA
 });
