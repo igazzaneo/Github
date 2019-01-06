@@ -144,13 +144,30 @@ function showMessage(message) {
   else navigator.notification.alert(message);
 }
 
+function checkUser() {
+
+  var recordCount = 0;
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+      recordCount = resultSet.rows.item(0).recordCount;
+    });
+  }, function(error) {
+    //showMessage('SELECT count error: ' + error.message);
+  });
+
+  if(recordCount == 0) {
+    showMessage('Utente non loggato');
+  } else {
+    goToPage2();
+  }
+}
+
 document.addEventListener('deviceready', function() {
   $('#alert-test').click(alertTest);
-  $('#echo-test').click(echoTest);
-  $('#self-test').click(selfTest);
   $('#string-test-1').click(stringTest1);
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
+  $('#checkuser').click(checkUser);
   /*$('#reload').click(reload);
 
   $('#string-test-2').click(stringTest2);
