@@ -4,13 +4,13 @@ var nextUser = 101;
 
 function initDatabase() {
 
-  showMessage("In initDatabase");
+  //showMessage("In initDatabase");
   database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
   showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE SampleTable (name, score)');
-    showMessage("DB created");
+    showMessage("Table created");
   });
 }
 
@@ -149,10 +149,11 @@ function checkUser() {
   var recordCount = 0;
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+      showMessage("Count: " + resultSet.rows.item(0).recordCount);
       recordCount = resultSet.rows.item(0).recordCount;
     });
   }, function(error) {
-    //showMessage('SELECT count error: ' + error.message);
+    showMessage('SELECT count error: ' + error.message);
   });
 
   if(recordCount == 0) {
