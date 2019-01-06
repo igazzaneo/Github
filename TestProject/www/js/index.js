@@ -149,11 +149,11 @@ document.addEventListener('deviceready', function() {
   $('#echo-test').click(echoTest);
   $('#self-test').click(selfTest);
   $('#string-test-1').click(stringTest1);
+  $('#add-record').click(addRecord);
+  $('#show-count').click(showCount);
   /*$('#reload').click(reload);
 
   $('#string-test-2').click(stringTest2);
-  $('#show-count').click(showCount);
-  $('#add-record').click(addRecord);
   $('#add-json-records-after-delay').click(addJSONRecordsAfterDelay);
   $('#delete-records').click(deleteRecords);
   $('#location-page2').click(goToPage2);*/
