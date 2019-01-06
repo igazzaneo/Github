@@ -5,13 +5,21 @@ var nextUser = 101;
 function initDatabase() {
 
   //showMessage("In initDatabase");
-  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
+  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default'});
   showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE SampleTable (name, score)');
     showMessage("Table created");
   });
+}
+
+function closeDB() {
+    database.close(function () {
+        console.log("DB closed!");
+    }, function (error) {
+        console.log("Error closing DB:" + error.message);
+    });
 }
 
 function echoTest() {
@@ -63,6 +71,20 @@ function showCount() {
   }, function(error) {
     showMessage('SELECT count error: ' + error.message);
   });
+}
+
+function getRowCount() {
+  var rowCount = 0;
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+      rowCount = resultSet.rows.item(0).recordCount);
+    });
+  }, function(error) {
+    showMessage('SELECT count error: ' + error.message);
+  });
+
+  return rowCount;
 }
 
 function addRecord() {
@@ -140,21 +162,15 @@ function goToPage2() {
 
 function showMessage(message) {
   console.log(message);
-  if (window.cordova.platformId === 'osx') window.alert(message);
-  else navigator.notification.alert(message);
+  if (window.cordova.platformId === 'osx')
+    window.alert(message);
+  else
+    navigator.notification.alert(message);
 }
 
 function checkUser() {
 
-  var recordCount = 0;
-  database.transaction(function(transaction) {
-    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
-      showMessage("Count: " + resultSet.rows.item(0).recordCount);
-      recordCount = resultSet.rows.item(0).recordCount;
-    });
-  }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
-  });
+  var recordCount = getRowCount();
 
   if(recordCount == 0) {
     showMessage('Utente non loggato');
