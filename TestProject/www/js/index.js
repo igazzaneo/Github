@@ -14,35 +14,28 @@ function initDatabase() {
   });
 }
 
-function closeDB() {
-    database.close(function () {
-        console.log("DB closed!");
-    }, function (error) {
-        console.log("Error closing DB:" + error.message);
-    });
-}
 
-function echoTest() {
+/*function echoTest() {
   sqlitePlugin.echoTest(function() {
     showMessage('Echo test OK');
   }, function(error) {
     showMessage('Echo test ERROR: ' + error.message);
   });
-}
+}*/
 
-function selfTest() {
+/*function selfTest() {
   sqlitePlugin.selfTest(function() {
     showMessage('Self test OK');
   }, function(error) {
     showMessage('Self test ERROR: ' + error.message);
   });
-}
+}*/
 
-function reload() {
+/*function reload() {
   location.reload();
-}
+}*/
 
-function stringTest1() {
+/*function stringTest1() {
   showMessage("Click...per dio!!!");
   database.transaction(function(transaction) {
     transaction.executeSql("SELECT upper('Test string') AS upperText", [], function(ignored, resultSet) {
@@ -51,9 +44,9 @@ function stringTest1() {
   }, function(error) {
     showMessage('SELECT count error: ' + error.message);
   });
-}
+}*/
 
-function stringTest2() {
+/*function stringTest2() {
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT upper(?) AS upperText', ['Test string'], function(ignored, resultSet) {
       showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
@@ -61,7 +54,7 @@ function stringTest2() {
   }, function(error) {
     showMessage('SELECT count error: ' + error.message);
   });
-}
+}*/
 
 function showCount() {
   database.transaction(function(transaction) {
@@ -98,7 +91,7 @@ function addRecord() {
   });
 }
 
-function addJSONRecordsAfterDelay() {
+/*function addJSONRecordsAfterDelay() {
   function getJSONObjectArray() {
     var COUNT = 100;
     var myArray = [];
@@ -139,9 +132,9 @@ function addJSONRecordsAfterDelay() {
       showMessage('ADD 100 records after delay OK');
     });
   });
-}
+}*/
 
-function deleteRecords() {
+/*function deleteRecords() {
   database.transaction(function(transaction) {
     transaction.executeSql('DELETE FROM SampleTable');
   }, function(error) {
@@ -150,11 +143,11 @@ function deleteRecords() {
     showMessage('DELETE OK');
     ++nextUser;
   });
-}
+}*/
 
-function alertTest() {
+/*function alertTest() {
   showMessage('Alert test message');
-}
+}*/
 
 function goToPage2() {
   window.location = "page2.html";
@@ -180,8 +173,8 @@ function checkUser() {
 }
 
 document.addEventListener('deviceready', function() {
-  $('#alert-test').click(alertTest);
-  $('#string-test-1').click(stringTest1);
+  //$('#alert-test').click(alertTest);
+  //$('#string-test-1').click(stringTest1);
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
