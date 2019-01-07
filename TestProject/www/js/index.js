@@ -2,6 +2,8 @@ var database = null;
 
 var nextUser = 101;
 
+var rowCount = 0;
+
 function initDatabase() {
 
   //showMessage("In initDatabase");
@@ -10,7 +12,7 @@ function initDatabase() {
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE SampleTable (name, score)');
-    showMessage("Table created");
+    showMessage("Table created: " + rowCount);
   });
 }
 
@@ -67,17 +69,28 @@ function showCount() {
 }
 
 function getRowCount() {
-  var rowCount = 0;
 
-  database.transaction(function(transaction) {
+
+  database.transaction(function(transaction, rowCount) {
     transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
       rowCount = resultSet.rows.item(0).recordCount;
+      return rowCount;
+      //setRowCount(resultSet.rows.item(0).recordCount);
     });
-  }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
+  }, function(error, rowCount) {
+    rowCount = 100;
+    //setRowCount(100);
+    showMessage('SELECT count error2: ' + error.message);
+    return rowCount;
   });
 
-  return rowCount;
+  //return rowCount;
+}
+
+function setRowCount(value) {
+  showMessage(value);
+  rowCount=value;
+  showMessage(rowCount);
 }
 
 function addRecord() {
@@ -153,6 +166,10 @@ function goToPage2() {
   window.location = "page2.html";
 }
 
+function goToPage(page) {
+  window.location = page;
+}
+
 function showMessage(message) {
   console.log(message);
   if (window.cordova.platformId === 'osx')
@@ -167,6 +184,8 @@ function checkUser() {
 
   if(recordCount == 0) {
     showMessage('Utente non loggato');
+  } else if(recordCount=100) {
+    goToPage("edit.html");
   } else {
     goToPage2();
   }
@@ -178,6 +197,7 @@ document.addEventListener('deviceready', function() {
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
+  $('#openEmail').click(openEmail);
   /*$('#reload').click(reload);
 
   $('#string-test-2').click(stringTest2);
@@ -185,5 +205,25 @@ document.addEventListener('deviceready', function() {
   $('#delete-records').click(deleteRecords);
   $('#location-page2').click(goToPage2);*/
 
-  initDatabase();
+  //initDatabase();
+
 });
+
+function openEmail() {
+  showMessage("Click email");
+    cordova.plugins.email.open({
+            to:      'to@email.de',
+            cc:      ['cc1@email.de', 'cc2@email.de'],
+            bcc:     ['bcc1@email.de', 'bcc2@email.de'],
+            subject: 'Body with plain text',
+            body:    "aaaaaa",
+            isHtml:  false
+        });
+}
+
+window.fn = {};
+
+  window.fn.gotoPage = function(page) {
+    var content = document.getElementById('content');
+    content.load(page);
+  };
