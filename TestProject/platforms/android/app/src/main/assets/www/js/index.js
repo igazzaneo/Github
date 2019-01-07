@@ -2,39 +2,42 @@ var database = null;
 
 var nextUser = 101;
 
+var rowCount = 0;
+
 function initDatabase() {
 
-  showMessage("In initDatabase");
-  database = window.sqlitePlugin.openDatabase({name: 'sample.db', location: 'default', androidDatabaseProvider: 'system'});
+  //showMessage("In initDatabase");
+  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default'});
   showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE SampleTable (name, score)');
-    showMessage("DB created");
+    showMessage("Table created: " + rowCount);
   });
 }
 
-function echoTest() {
-  window.sqlitePlugin.echoTest(function() {
+
+/*function echoTest() {
+  sqlitePlugin.echoTest(function() {
     showMessage('Echo test OK');
   }, function(error) {
     showMessage('Echo test ERROR: ' + error.message);
   });
-}
+}*/
 
-function selfTest() {
-  window.sqlitePlugin.selfTest(function() {
+/*function selfTest() {
+  sqlitePlugin.selfTest(function() {
     showMessage('Self test OK');
   }, function(error) {
     showMessage('Self test ERROR: ' + error.message);
   });
-}
+}*/
 
-function reload() {
+/*function reload() {
   location.reload();
-}
+}*/
 
-function stringTest1() {
+/*function stringTest1() {
   showMessage("Click...per dio!!!");
   database.transaction(function(transaction) {
     transaction.executeSql("SELECT upper('Test string') AS upperText", [], function(ignored, resultSet) {
@@ -43,9 +46,9 @@ function stringTest1() {
   }, function(error) {
     showMessage('SELECT count error: ' + error.message);
   });
-}
+}*/
 
-function stringTest2() {
+/*function stringTest2() {
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT upper(?) AS upperText', ['Test string'], function(ignored, resultSet) {
       showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
@@ -53,7 +56,7 @@ function stringTest2() {
   }, function(error) {
     showMessage('SELECT count error: ' + error.message);
   });
-}
+}*/
 
 function showCount() {
   database.transaction(function(transaction) {
@@ -63,6 +66,31 @@ function showCount() {
   }, function(error) {
     showMessage('SELECT count error: ' + error.message);
   });
+}
+
+function getRowCount() {
+
+
+  database.transaction(function(transaction, rowCount) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+      rowCount = resultSet.rows.item(0).recordCount;
+      return rowCount;
+      //setRowCount(resultSet.rows.item(0).recordCount);
+    });
+  }, function(error, rowCount) {
+    rowCount = 100;
+    //setRowCount(100);
+    showMessage('SELECT count error2: ' + error.message);
+    return rowCount;
+  });
+
+  //return rowCount;
+}
+
+function setRowCount(value) {
+  showMessage(value);
+  rowCount=value;
+  showMessage(rowCount);
 }
 
 function addRecord() {
@@ -76,7 +104,7 @@ function addRecord() {
   });
 }
 
-function addJSONRecordsAfterDelay() {
+/*function addJSONRecordsAfterDelay() {
   function getJSONObjectArray() {
     var COUNT = 100;
     var myArray = [];
@@ -117,9 +145,9 @@ function addJSONRecordsAfterDelay() {
       showMessage('ADD 100 records after delay OK');
     });
   });
-}
+}*/
 
-function deleteRecords() {
+/*function deleteRecords() {
   database.transaction(function(transaction) {
     transaction.executeSql('DELETE FROM SampleTable');
   }, function(error) {
@@ -128,35 +156,74 @@ function deleteRecords() {
     showMessage('DELETE OK');
     ++nextUser;
   });
-}
+}*/
 
-function alertTest() {
+/*function alertTest() {
   showMessage('Alert test message');
-}
+}*/
 
 function goToPage2() {
   window.location = "page2.html";
 }
 
+function goToPage(page) {
+  window.location = page;
+}
+
 function showMessage(message) {
   console.log(message);
-  if (window.cordova.platformId === 'osx') window.alert(message);
-  else navigator.notification.alert(message);
+  if (window.cordova.platformId === 'osx')
+    window.alert(message);
+  else
+    navigator.notification.alert(message);
+}
+
+function checkUser() {
+
+  var recordCount = getRowCount();
+
+  if(recordCount == 0) {
+    showMessage('Utente non loggato');
+  } else if(recordCount=100) {
+    goToPage("edit.html");
+  } else {
+    goToPage2();
+  }
 }
 
 document.addEventListener('deviceready', function() {
-  $('#alert-test').click(alertTest);
-  $('#echo-test').click(echoTest);
-  $('#self-test').click(selfTest);
-  $('#string-test-1').click(stringTest1);
+  //$('#alert-test').click(alertTest);
+  //$('#string-test-1').click(stringTest1);
+  $('#add-record').click(addRecord);
+  $('#show-count').click(showCount);
+  $('#checkuser').click(checkUser);
+  $('#openEmail').click(openEmail);
   /*$('#reload').click(reload);
 
   $('#string-test-2').click(stringTest2);
-  $('#show-count').click(showCount);
-  $('#add-record').click(addRecord);
   $('#add-json-records-after-delay').click(addJSONRecordsAfterDelay);
   $('#delete-records').click(deleteRecords);
   $('#location-page2').click(goToPage2);*/
 
-  initDatabase();
+  //initDatabase();
+
 });
+
+function openEmail() {
+  showMessage("Click email");
+    cordova.plugins.email.open({
+            to:      'to@email.de',
+            cc:      ['cc1@email.de', 'cc2@email.de'],
+            bcc:     ['bcc1@email.de', 'bcc2@email.de'],
+            subject: 'Body with plain text',
+            body:    "aaaaaa",
+            isHtml:  false
+        });
+}
+
+window.fn = {};
+
+  window.fn.gotoPage = function(page) {
+    var content = document.getElementById('content');
+    content.load(page);
+  };
