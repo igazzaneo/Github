@@ -6,13 +6,11 @@ var rowCount = 0;
 
 function initDatabase() {
 
-  //showMessage("In initDatabase");
   database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
-  showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
     transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
-    showMessage("Table created");
+    showMessage("Db initialized");
   });
 }
 
@@ -46,7 +44,7 @@ function logIn() {
 
         // Aggiorno il campo logged
         database.transaction(function(transaction) {
-          transaction.executeSql('update utente se logged=1');
+          transaction.executeSql('update utente set logged=1');
         }, function(error) {
           showMessage('UPDATE error: ' + error.message);
         }, function() {
@@ -72,7 +70,7 @@ function logIn() {
 
 function showCount() {
   database.transaction(function(transaction) {
-    transaction.executeSql('SELECT count(*) AS recordCount FROM utente', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM utente where logged=1', [], function(ignored, resultSet) {
       showMessage('RECORD COUNT: ' + resultSet.rows.item(0).recordCount);
     });
   }, function(error) {
@@ -85,6 +83,8 @@ function getRowCount() {
   database.transaction(function(transaction, rowCount) {
     transaction.executeSql('SELECT count(*) AS recordCount FROM utente where logged=1', [], function(ignored, resultSet) {
       rowCount = resultSet.rows.item(0).recordCount;
+
+      showMessage("RowCount: " + rowCount);
       return rowCount;
     });
   }, function(error, rowCount) {
