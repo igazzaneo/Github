@@ -7,60 +7,70 @@ var rowCount = 0;
 function initDatabase() {
 
   //showMessage("In initDatabase");
-  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default'});
+  database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
   showMessage("DB created!!!!");
 
   database.transaction(function(transaction) {
-    transaction.executeSql('CREATE TABLE SampleTable (name, score)');
-    showMessage("Table created: " + rowCount);
+    transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
+    showMessage("Table created");
   });
 }
 
+function logOut() {
 
-/*function echoTest() {
-  sqlitePlugin.echoTest(function() {
-    showMessage('Echo test OK');
-  }, function(error) {
-    showMessage('Echo test ERROR: ' + error.message);
-  });
-}*/
-
-/*function selfTest() {
-  sqlitePlugin.selfTest(function() {
-    showMessage('Self test OK');
-  }, function(error) {
-    showMessage('Self test ERROR: ' + error.message);
-  });
-}*/
-
-/*function reload() {
-  location.reload();
-}*/
-
-/*function stringTest1() {
-  showMessage("Click...per dio!!!");
   database.transaction(function(transaction) {
-    transaction.executeSql("SELECT upper('Test string') AS upperText", [], function(ignored, resultSet) {
-      showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
-    });
+    transaction.executeSql('delete from utente']);
   }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
+    showMessage('DELETE error: ' + error.message);
+  }, function() {
+    showMessage('DELETE OK');
   });
-}*/
 
-/*function stringTest2() {
+}
+
+//function logIn(username, password) {
+function logIn() {
+  var login='igazzaneo@gmail.com';
+  var password='password';
+
   database.transaction(function(transaction) {
-    transaction.executeSql('SELECT upper(?) AS upperText', ['Test string'], function(ignored, resultSet) {
-      showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
+
+    var query = "SELECT * FROM utente WHERE email = ? and password = ?";
+
+    transaction.executeSql(query, ['test', 'test'], function (transaction, resultSet) {
+      var trovato = resultSet.rows.length;
+
+      if(trovato > 0) {
+        // Utente presente e credenziali ok
+        showMessage("Benvenuto: " + resultSet.rows.item(0).name + " - " + resultSet.rows.item[0].email);
+
+        // Aggiorno il campo logged
+        database.transaction(function(transaction) {
+          transaction.executeSql('update utente se logged=1']);
+        }, function(error) {
+          showMessage('UPDATE error: ' + error.message);
+        }, function() {
+          showMessage('UPDATE OK');
+        });
+
+      }
+
+    },
+    function (tx, error) {
+        console.log('SELECT error: ' + error.message);
     });
+
   }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
+    showMessage('LOGIN error: ' + error.message);
+  }, function() {
+    showMessage('LOGIN OK');
   });
-}*/
+
+}
 
 function showCount() {
   database.transaction(function(transaction) {
-    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM utente', [], function(ignored, resultSet) {
       showMessage('RECORD COUNT: ' + resultSet.rows.item(0).recordCount);
     });
   }, function(error) {
@@ -70,16 +80,13 @@ function showCount() {
 
 function getRowCount() {
 
-
   database.transaction(function(transaction, rowCount) {
-    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM utente where logged=1', [], function(ignored, resultSet) {
       rowCount = resultSet.rows.item(0).recordCount;
       return rowCount;
-      //setRowCount(resultSet.rows.item(0).recordCount);
     });
   }, function(error, rowCount) {
-    rowCount = 100;
-    //setRowCount(100);
+    rowCount = 0;
     showMessage('SELECT count error2: ' + error.message);
     return rowCount;
   });
@@ -95,7 +102,7 @@ function setRowCount(value) {
 
 function addRecord() {
   database.transaction(function(transaction) {
-    transaction.executeSql('INSERT INTO SampleTable VALUES (?,?)', ['User '+nextUser, nextUser]);
+    transaction.executeSql('INSERT INTO utente VALUES (?,?, ?, ?)', ['italo', 'igazzaneo@gmail.com', 'password', 0]);
   }, function(error) {
     showMessage('INSERT error: ' + error.message);
   }, function() {
@@ -192,12 +199,12 @@ function checkUser() {
 }
 
 document.addEventListener('deviceready', function() {
-  //$('#alert-test').click(alertTest);
-  //$('#string-test-1').click(stringTest1);
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
-  $('#openEmail').click(openEmail);
+  $('#login').click(logIn);
+  $('#logout').click(logOut);
+  //$('#openEmail').click(openEmail);
   /*$('#reload').click(reload);
 
   $('#string-test-2').click(stringTest2);
