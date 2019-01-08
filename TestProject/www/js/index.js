@@ -22,6 +22,7 @@ function logOut() {
     showMessage('DELETE error: ' + error.message);
   }, function() {
     showMessage('DELETE OK');
+    removeFromLocalStorage("loggedUser");
   });
 
 }
@@ -36,13 +37,14 @@ function logIn() {
 
     var query = "SELECT * FROM utente WHERE email = ? and password = ?";
 
+    showMessage(query);
+
     transaction.executeSql(query, [login, password], function (transaction, resultSet) {
 
       var trovato = resultSet.rows.length;
+      showMessage(trovato);
 
       if(trovato > 0) {
-
-        saveOnLocalStorage();
 
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item[0].name + " - " + resultSet.rows.item[0].email);
@@ -68,7 +70,7 @@ function logIn() {
   }, function(error) {
     showMessage('LOGIN error: ' + error.message);
   }, function() {
-    //showMessage('LOGIN OK');
+    saveOnLocalStorage("loggedUser", "1");
   });
 
 }
@@ -142,16 +144,18 @@ function getValueFromLocalStorage(key) {
     return 0
   else
     return window.localStorage.getItem(key);
-
 }
 
-function saveOnLocalStorage() {
-  window.localStorage.setItem("loggedUser", "1");
+function saveOnLocalStorage(key, value) {
+  window.localStorage.setItem(key, value);
+}
+
+function removeFromLocalStorage(key) {
+  window.localStorage.removeItem(key);
 }
 
 function checkUser() {
 
-  //saveOnLocalStorage();
   var logged = getValueFromLocalStorage("loggedUser");
 
   showMessage("Logged:" + logged);
@@ -162,13 +166,6 @@ function checkUser() {
     showMessage('Utente non loggato');
   }
 
-  //var recordCount = getRowCount();
-
-  /*if(getRowCount() == 0) {
-    showMessage('Utente non loggato');
-  } else {
-    goToPage2();
-  }*/
 }
 
 document.addEventListener('deviceready', function() {
