@@ -37,6 +37,7 @@ function logIn() {
     var query = "SELECT * FROM utente WHERE email = ? and password = ?";
 
     transaction.executeSql(query, [login, password], function (transaction, resultSet) {
+
       var trovato = resultSet.rows.length;
 
       if(trovato > 0) {
@@ -44,7 +45,7 @@ function logIn() {
         saveOnLocalStorage();
 
         // Utente presente e credenziali ok
-        showMessage("Benvenuto: " + resultSet.rows.item(0).name + " - " + resultSet.rows.item[0].email);
+        showMessage("Benvenuto: " + resultSet.rows.item[0].name + " - " + resultSet.rows.item[0].email);
 
         // Aggiorno il campo logged
         database.transaction(function(transaction) {
@@ -117,8 +118,6 @@ function addRecord() {
   });
 }
 
-
-
 function goToPage2() {
   window.location = "page2.html";
 }
@@ -129,6 +128,8 @@ function goToPage(page) {
 
 function showMessage(message) {
   console.log(message);
+  console.log(window.cordova.platformId);
+
   if (window.cordova.platformId === 'osx')
     window.alert(message);
   else
@@ -150,6 +151,7 @@ function saveOnLocalStorage() {
 
 function checkUser() {
 
+  //saveOnLocalStorage();
   var logged = getValueFromLocalStorage("loggedUser");
 
   showMessage("Logged:" + logged);
