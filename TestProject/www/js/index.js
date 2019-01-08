@@ -210,15 +210,26 @@ document.addEventListener('deviceready', function() {
 });
 
 function openEmail() {
-  showMessage("Click email");
-    cordova.plugins.email.open({
-            to:      'to@email.de',
-            cc:      ['cc1@email.de', 'cc2@email.de'],
-            bcc:     ['bcc1@email.de', 'bcc2@email.de'],
-            subject: 'Body with plain text',
-            body:    "aaaaaa",
-            isHtml:  false
-        });
+  cordova.plugins.email.isAvailable(
+        function (isAvailable) {
+            alert("is email mobile available? " + (isAvailable ? "Yes" : "No"));
+            if(isAvailable){
+             window.plugin.email.open({
+                 to:      'test@test.com',
+                 subject: 'Greetings',
+                 body:    'How are you? Nice greetings from Leipzig'
+             }, callback, scope);
+           }
+        }
+    );
+}
+
+function callback(){
+    showMessage("callback function");
+}
+
+function scope(){
+    showMessage("scope function");
 }
 
 window.fn = {};
