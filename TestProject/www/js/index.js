@@ -28,6 +28,7 @@ function logOut() {
 
 //function logIn(username, password) {
 function logIn() {
+
   var login='igazzaneo@gmail.com';
   var password='password';
 
@@ -39,6 +40,9 @@ function logIn() {
       var trovato = resultSet.rows.length;
 
       if(trovato > 0) {
+
+        saveOnLocalStorage();
+        
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item(0).name + " - " + resultSet.rows.item[0].email);
 
@@ -131,15 +135,27 @@ function showMessage(message) {
     navigator.notification.alert(message);
 }
 
+function getValueFromLocalStorage(key) {
+
+  return window.localStorage.getItem(key);
+
+}
+
+function saveOnLocalStorage() {
+  window.localStorage.setItem("loggedUser", "1");
+}
+
 function checkUser() {
+
+  showMessage(getValueFromLocalStorage("loggedUser"));
 
   //var recordCount = getRowCount();
 
-  if(getRowCount() == 0) {
+  /*if(getRowCount() == 0) {
     showMessage('Utente non loggato');
   } else {
     goToPage2();
-  }
+  }*/
 }
 
 document.addEventListener('deviceready', function() {
@@ -153,33 +169,3 @@ document.addEventListener('deviceready', function() {
   initDatabase();
 
 });
-
-function openEmail() {
-  cordova.plugins.email.isAvailable(
-        function (isAvailable) {
-            alert("is email mobile available? " + (isAvailable ? "Yes" : "No"));
-            if(isAvailable){
-             window.plugin.email.open({
-                 to:      'test@test.com',
-                 subject: 'Greetings',
-                 body:    'How are you? Nice greetings from Leipzig'
-             }, callback, scope);
-           }
-        }
-    );
-}
-
-function callback(){
-    showMessage("callback function");
-}
-
-function scope(){
-    showMessage("scope function");
-}
-
-window.fn = {};
-
-  window.fn.gotoPage = function(page) {
-    var content = document.getElementById('content');
-    content.load(page);
-  };
