@@ -133,9 +133,9 @@ function showMessage(message) {
 
 function checkUser() {
 
-  var recordCount = getRowCount();
+  //var recordCount = getRowCount();
 
-  if(recordCount == 0) {
+  if(getRowCount() == 0) {
     showMessage('Utente non loggato');
   } else {
     goToPage2();
