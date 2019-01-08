@@ -36,13 +36,13 @@ function logIn() {
 
     var query = "SELECT * FROM utente WHERE email = ? and password = ?";
 
-    transaction.executeSql(query, ['test', 'test'], function (transaction, resultSet) {
+    transaction.executeSql(query, [login, password], function (transaction, resultSet) {
       var trovato = resultSet.rows.length;
 
       if(trovato > 0) {
 
         saveOnLocalStorage();
-        
+
         // Utente presente e credenziali ok
         showMessage("Benvenuto: " + resultSet.rows.item(0).name + " - " + resultSet.rows.item[0].email);
 
@@ -137,7 +137,10 @@ function showMessage(message) {
 
 function getValueFromLocalStorage(key) {
 
-  return window.localStorage.getItem(key);
+  if(window.localStorage.getItem(key) == null)
+    return 0
+  else
+    return window.localStorage.getItem(key);
 
 }
 
@@ -147,7 +150,15 @@ function saveOnLocalStorage() {
 
 function checkUser() {
 
-  showMessage(getValueFromLocalStorage("loggedUser"));
+  var logged = getValueFromLocalStorage("loggedUser");
+
+  showMessage("Logged:" + logged);
+
+  if(logged == 1) {
+    goToPage2();
+  } else {
+    showMessage('Utente non loggato');
+  }
 
   //var recordCount = getRowCount();
 
