@@ -19,7 +19,7 @@ function initDatabase() {
 function logOut() {
 
   database.transaction(function(transaction) {
-    transaction.executeSql('delete from utente']);
+    transaction.executeSql('delete from utente');
   }, function(error) {
     showMessage('DELETE error: ' + error.message);
   }, function() {
@@ -111,63 +111,7 @@ function addRecord() {
   });
 }
 
-/*function addJSONRecordsAfterDelay() {
-  function getJSONObjectArray() {
-    var COUNT = 100;
-    var myArray = [];
 
-    for (var i=0; i<COUNT; ++i) {
-      myArray.push({name: 'User '+nextUser, score: nextUser});
-      ++nextUser;
-    }
-
-    return myArray;
-  }
-
-  function getJSONAfterDelay() {
-    var MY_DELAY = 150;
-
-    var d = $.Deferred();
-
-    setTimeout(function() {
-      d.resolve(getJSONObjectArray());
-    }, MY_DELAY);
-
-    return $.when(d);
-  }
-
-  // NOTE: This is similar to the case when an application
-  // fetches the data over AJAX to populate the database.
-  // IMPORTANT: The application MUST get the data before
-  // starting the transaction.
-  getJSONAfterDelay().then(function(jsonObjectArray) {
-    database.transaction(function(transaction) {
-      $.each(jsonObjectArray, function(index, recordValue) {
-        transaction.executeSql('INSERT INTO SampleTable VALUES (?,?)',
-          [recordValue.name, recordValue.score]);
-      });
-    }, function(error) {
-      showMessage('ADD records after delay ERROR');
-    }, function() {
-      showMessage('ADD 100 records after delay OK');
-    });
-  });
-}*/
-
-/*function deleteRecords() {
-  database.transaction(function(transaction) {
-    transaction.executeSql('DELETE FROM SampleTable');
-  }, function(error) {
-    showMessage('DELETE error: ' + error.message);
-  }, function() {
-    showMessage('DELETE OK');
-    ++nextUser;
-  });
-}*/
-
-/*function alertTest() {
-  showMessage('Alert test message');
-}*/
 
 function goToPage2() {
   window.location = "page2.html";
@@ -205,14 +149,8 @@ document.addEventListener('deviceready', function() {
   $('#login').click(logIn);
   $('#logout').click(logOut);
   //$('#openEmail').click(openEmail);
-  /*$('#reload').click(reload);
 
-  $('#string-test-2').click(stringTest2);
-  $('#add-json-records-after-delay').click(addJSONRecordsAfterDelay);
-  $('#delete-records').click(deleteRecords);
-  $('#location-page2').click(goToPage2);*/
-
-  //initDatabase();
+  initDatabase();
 
 });
 
