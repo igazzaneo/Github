@@ -46,7 +46,7 @@ function logIn() {
 
         // Aggiorno il campo logged
         database.transaction(function(transaction) {
-          transaction.executeSql('update utente se logged=1']);
+          transaction.executeSql('update utente se logged=1');
         }, function(error) {
           showMessage('UPDATE error: ' + error.message);
         }, function() {
