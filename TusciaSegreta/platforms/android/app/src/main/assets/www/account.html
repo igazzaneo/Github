@@ -1,0 +1,67 @@
+<ons-page>
+  <ons-toolbar style="background-color: #000000">
+    <div class="left" style="width: 50px">
+      <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="fa-info" size="40px"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center"><img src="img/logo_tool.png" height="55px"></div>
+    <div class="right" style="width: 50px">
+      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')"></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+    <ons-card style="background-color: #adadad; color: #ffffff; padding: 1px; text-align: center;">
+      <div class="title">
+        Crea il tuo profilo
+      </div>
+    </ons-card>
+    <ons-card>
+      <div style="content">
+        <div class="wrap-input100 validate-input" data-validate="Indirizzo email obbligatorio">
+					<input class="input100" id="email" type="text" name="email" placeholder="Indirizzo email">
+					<label class="label-input100" for="email">
+						<span class="fas fa-at"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input" data-validate="Indirizzo email obbligatorio">
+					<input class="input100" id="username" type="text" name="username" placeholder="Nome utente">
+					<label class="label-input100" for="username">
+						<span class="fas fa-user-alt"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
+					<input class="input100" id="password" type="password" name="password" placeholder="Password">
+					<label class="label-input100" for="password">
+						<span class="fas fa-key"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input" data-validate="Inserire preferibilmente il numero di telefono">
+					<input class="input100" id="cellulare" type="text" name="cellulare" placeholder="Cellulare">
+					<label class="label-input100" for="cellulare">
+						<span class="fas fa-mobile-alt"></span>
+					</label>
+				</div>
+
+        <div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn" onclick="registrazioneDaApp()">Registrati</button>
+					</div>
+				</div>
+
+        <br/>
+        <div align="center">Oppure</div>
+        <br/>
+        <div align="center">
+          <button class="loginBtn loginBtn--facebook">Continua con Facebook</button>
+        </div>
+        <br/>
+        <div align="center">
+          <button class="loginBtn loginBtn--google">Continua con Google</button>
+        </div>
+        <br/>
+        <div align="left">Continuando accetti i termini di servizio, le Norme sulla privacy e le Norme sull'utilizzo dei cookie di TusciaSegreta.</div>
+      </div>
+    </ons-card>
+</ons-page>

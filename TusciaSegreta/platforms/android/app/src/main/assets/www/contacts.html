@@ -1,0 +1,20 @@
+<ons-page>
+  <ons-toolbar style="background-color: #000000">
+    <div class="left" style="width: 50px">
+      <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="fa-info" size="40px"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center"><img src="img/logo_tool.png" height="55px"></div>
+    <div class="right" style="width: 50px">
+      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')"></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+  <ons-tabbar position="auto">
+      <ons-tab page="contacts_tab1.html" label="Inserisci la tua azienda" icon="fa-address-card"></ons-tab>
+      <ons-tab page="contacts_tab2.html" label="Segnalaci un sito" icon="fa-hand-point-right"></ons-tab>
+      <ons-tab page="contacts_tab3.html" label="Problemi tecnici sul percorso" icon="fa-frown"></ons-tab>
+  </ons-tabbar>
+
+</ons-page>

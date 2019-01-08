@@ -1,0 +1,151 @@
+<ons-page id="Scelta">
+
+    <div id="mapid3" style="width: 100%; height: 60%;"></div>
+    <div id="elevation-div" style="width: 100%; height: 35%;"></div>
+    <br/>
+    <div>
+      <ons-list>
+        <ons-list-item>
+          <ons-row>
+            <ons-col width="50px"><ons-icon icon="fa-arrow-right" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Lunghezza: 3,5 Km</ons-col>
+            <ons-col width="50px"><ons-icon icon="fa-arrow-up" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Dislivello: 500m</ons-col>
+          </ons-row>
+        </ons-list-item>
+
+        <ons-list-item>
+          <ons-row>
+            <ons-col width="50px"><ons-icon icon="fa-play" rotate="270" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Difficoltà: Media</ons-col>
+            <ons-col width="50px"><ons-icon modifier="other" icon="fa-clock" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Durata prevista: 1h30m</ons-col>
+          </ons-row>
+        </ons-list-item>
+
+        <ons-list-item>
+          <ons-row>
+            <ons-col width="50px"><ons-icon icon="fa-undo-alt" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Percorso ad anello: NO</ons-col>
+          </ons-row>
+        </ons-list-item>
+
+        <ons-list-item>
+          <ons-row>
+            <ons-col width="50px"><ons-icon icon="fa-battery-three-quarters" rotate="270" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Batteria: consigliati caricatori</ons-col>
+            <ons-col width="50px"><ons-icon modifier="other" icon="fa-wifi" class="list-item__icon"></ons-icon></ons-col>
+            <ons-col>Rete mobile: assente</ons-col>
+          </ons-row>
+        </ons-list-item>
+      </ons-list>
+    </div>
+
+  <script>
+
+    var roads = L.gridLayer.googleMutant({
+       type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+    })
+
+    var satellite = L.gridLayer.googleMutant({
+       type: 'satellite'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+    })
+
+    var terrain = L.gridLayer.googleMutant({
+       type: 'terrain'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+    })
+
+    var hybrid = L.gridLayer.googleMutant({
+       type: 'hybrid'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
+    })
+
+    var map = new L.Map('mapid3',{
+        center: new L.LatLng(42.585280, 11.933396),
+        zoom: 9,
+        layers: [roads]
+    });
+
+    var baseLayers = {
+        "Standard": roads,
+        "Satellite": satellite,
+        "Altimetria": terrain,
+        "Ibrido": hybrid
+    };
+
+    L.control.layers(baseLayers).addTo(map);
+
+
+
+    var elevationControl = {
+      //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
+      url: "gpx/eremo-di-poggio-conte2.gpx",
+      options: {
+        position: "topleft",
+        theme: "magenta-theme", //default: lime-theme
+        useHeightIndicator: true, //if false a marker is drawn at map position
+        interpolation: d3.curveLinear, //see https://github.com/d3/d3/wiki/
+        collapsed: false, //collapsed mode, show chart on click or mouseover
+        elevationDiv: "#elevation-div",
+        detachedView: true,
+        responsiveView: true,
+      },
+    };
+
+    var controlElevation = L.control.elevation(elevationControl.options);
+    controlElevation.loadGPX(map, elevationControl.url);
+
+    //var gpx = 'gpx/eremo-di-poggio-conte2.gpx'; // URL to your GPX file or the GPX itself
+
+    var options = {
+      icon: 'fas fa-map-pin',
+      iconShape: 'marker',
+      borderColor: '#000000',
+      borderWidth: 2,
+      iconSize: [25, 25],
+      popupAnchor: [-1, -32],
+      textColor: '#000000'
+    };
+
+    var startOptions = {
+      icon: 'fas fa-flag',
+      iconShape: 'marker',
+      borderColor: '#000000',
+      borderWidth: 2,
+      iconSize: [35, 35],
+      popupAnchor: [-1, -32],
+      textColor: '#00FF00',
+      customClasses: 'fa-2x'
+    };
+
+    var endOptions = {
+      icon: 'fas fa-flag-checkered',
+      iconShape: 'marker',
+      borderColor: '#000000',
+      borderWidth: 2,
+      iconSize: [35, 35],
+      popupAnchor: [-1, -32],
+      textColor: '#FF0000',
+      customClasses: 'fa-2x'
+    };
+
+    //console.log("GPX FILE:"  + gpx);
+    /*new L.GPX(gpx, {
+      async: true,
+      marker_options: {
+        startIconUrl: 'img/pin-icon-start.png',
+        endIconUrl: 'img/pin-icon-end.png',
+        shadowUrl: 'img/pin-shadow.png',
+
+        wptIcons: {
+          '': new L.BeautifyIcon.icon(options)
+        }
+      }
+    }).on('loaded', function(e) {
+      console.log("loaded");
+      var gpx = e.target;
+      mymap.fitBounds(gpx.getBounds());
+      control.addOverlay(gpx, gpx.get_name());
+    }).addTo(mymap);*/
+
+    </script>
+</ons-page>

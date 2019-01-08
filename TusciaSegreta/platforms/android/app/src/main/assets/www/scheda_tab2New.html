@@ -1,0 +1,62 @@
+<ons-page id="Scelta">
+
+    <div id="map" style="width: 100%; height: 60%;"></div>
+    <div id="elevation-div"></div>
+
+
+
+    <script>
+      var opts = {
+        map: {
+          center: [41.4583, 12.7059],
+          zoom: 5,
+          markerZoomAnimation: false,
+          zoomControl: false,
+        },
+        zoomControl: {
+          position: 'topleft',
+        },
+        otmLayer: {
+          url: 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+          options: {
+            attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+            /*subdomains:"1234"*/
+          },
+        },
+        elevationControl: {
+          url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
+          options: {
+            position: "topleft",
+            theme: "magenta-theme", //default: lime-theme
+            useHeightIndicator: true, //if false a marker is drawn at map position
+            interpolation: d3.curveLinear, //see https://github.com/d3/d3/wiki/
+            collapsed: false, //collapsed mode, show chart on click or mouseover
+            elevationDiv: "#elevation-div",
+            detachedView: true,
+            responsiveView: true,
+          },
+        },
+        layersControl: {
+          options: {
+            collapsed: false,
+          },
+        },
+      };
+
+      var map = new L.Map('map', opts.map);
+
+      var baseLayers = {};
+      baseLayers.OTM = new L.TileLayer(opts.otmLayer.url, opts.otmLayer.options);
+
+      var controlZoom = new L.Control.Zoom(opts.zoomControl);
+      var controlElevation = L.control.elevation(opts.elevationControl.options);
+      var controlLayer = L.control.layers(baseLayers, null, opts.layersControl.options);
+
+      controlZoom.addTo(map);
+      controlLayer.addTo(map);
+      controlElevation.loadGPX(map, opts.elevationControl.url);
+
+      map.addLayer(baseLayers.OTM);
+    </script>
+
+</ons-page>

@@ -1,0 +1,13 @@
+{
+  "name": "it.itlogix.app.tuscia",
+  "version": "1.0.0",
+  "displayName": "Tuscia Segreta",
+  "cordova": {
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {
+    "cordova-android": "~7.0.0"
+  }
+}

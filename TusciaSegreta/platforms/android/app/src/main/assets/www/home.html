@@ -1,0 +1,72 @@
+<ons-page>
+  <script>
+    //document.querySelector('#item1').showExpansion();
+  </script>
+  <ons-toolbar style="background-color: #000000">
+    <div class="left" style="width: 50px">
+      <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="fa-info" size="40px"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center"><img src="img/logo_tool.png" height="55px"></div>
+    <div class="right" style="width: 50px">
+      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')"></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+    <!--ons-tabbar swipeable position="auto">
+      <ons-tab page="home_tab1.html" label="Scelta" icon="fa-map-signs"></ons-tab>
+      <ons-tab page="home_tab2.html" label="Autonomia" icon="fa-street-view"></ons-tab>
+      <ons-tab page="home_tab3.html" label="Scoperta" icon="map-marked-alt">
+    </ons-tab>
+  </ons-tabbar-->
+  <ons-card>
+    <!--img src="img/logo_home.png" style="width: 100%"-->
+    <div>
+        <iframe id="video" width="100%" height="300" src="https://www.youtube.com/embed/snHW-_Yingc" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <br>
+    <ons-list>
+      <ons-list-item expandable id="item1" onclick="openSection(1)">
+        <div class="left">
+          <ons-icon icon="fa-map-signs" class="list-item__icon"></ons-icon>
+        </div>
+        Scelta
+        <div class="expandable-content">
+            <div style="content">
+              Puoi visitare sorvolando virtualmente sui siti (link siti) che un team di archeologi ha selezionato per te, PRIMA di scegliere la tua destinazione.
+              <br/><br/>
+              Non rimarrai deluso!
+            </div>
+        </div>
+      </ons-list-item>
+      <ons-list-item expandable id="item2" onclick="openSection(2)">
+        <div class="left">
+          <ons-icon icon="fa-street-view" class="list-item__icon"></ons-icon>
+        </div>
+        Autonomia
+        <div class="expandable-content">
+          <div style="content">
+            Puoi organizzare (link siti) la tua gita rispettando i TUOI tempi e ritmi.
+            <br/><br/>
+            Niente più appuntamenti impossibili, corse dietro alla guida (link promo guida) e pause imposte dal gruppo!!
+            <br/><br/>
+            Sei TU il protagonista della tua scoperta!
+          </div>
+        </div>
+      </ons-list-item>
+      <ons-list-item expandable id="item3" onclick="openSection(3)">
+        <div class="left">
+          <ons-icon icon="map-marked-alt" class="list-item__icon"></ons-icon>
+        </div>
+        Scoperta
+        <div class="expandable-content">
+          <div style="content">
+            Appena finita la tua avventura, comincia una nuova scoperta!
+            <br/><br/>
+            L’APP ti può condurre ai punti di ristoro più vicini o alla scoperta dei prodotti tipici, delle attrazioni, dell’artigianato locale e dei siti raggiungibili della TUSCIA SEGRETA!
+          </div>
+        </div>
+      </ons-list-item>
+    </ons-list>
+  </ons-card>
+</ons-page>
