@@ -53,6 +53,8 @@ function logIn() {
           showMessage('UPDATE OK');
         });
 
+      } else {
+        showMessage('Nessun utente trovato!!!');
       }
 
     },
@@ -63,7 +65,7 @@ function logIn() {
   }, function(error) {
     showMessage('LOGIN error: ' + error.message);
   }, function() {
-    showMessage('LOGIN OK');
+    //showMessage('LOGIN OK');
   });
 
 }
@@ -135,8 +137,6 @@ function checkUser() {
 
   if(recordCount == 0) {
     showMessage('Utente non loggato');
-  } else if(recordCount=100) {
-    goToPage("edit.html");
   } else {
     goToPage2();
   }
