@@ -60,6 +60,17 @@ function copyerror(e)
         //e.code = 516 => if db exists
 }
 
+function openDB() {
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+}
+
 //function logIn(username, password) {
 function logIn(login, password) {
 
@@ -207,6 +218,7 @@ document.addEventListener('deviceready', function() {
   $('#checkuser').click(checkUser);
   $('#login').click(logIn);
   $('#logout').click(logOut);
+  $('#openDB').click(openDB);
   //$('#openEmail').click(openEmail);
 
   initDatabase();
