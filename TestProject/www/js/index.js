@@ -26,9 +26,52 @@ function selectDataFromDB() {
 
 // Fail Method
 function setupDB() {
-    //newDB = window.sqlitePlugin.openDatabase({ name: "<NewImprovedDBName>.db" });
-    //newDB.transaction(sql.initDB, sql.errorCallback, sql.successCallBack);
-    showMessage("DB non presente...qui devo crearlo e popolarlo!");
+
+  /*database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
+
+  database.transaction(function(transaction) {
+      transaction.executeSql('CREATE TABLE sito (id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, denominazione	TEXT NOT NULL, descrizione TEXT NOT NULL, video	TEXT, latitudine	NUMERIC NOT NULL, longitudine	NUMERIC NOT NULL)');
+    });
+  }*/
+
+  copyDatabaseFile('tusciasegreta.db').then(function () {
+    // success! :)
+    showMessage("DB copiato e aperto!!");
+    database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
+  }).catch(function (err) {
+    // error! :(
+    showMessage(err);
+  });
+
+}
+
+// copy a database file from www/ in the app directory to the data directory
+function copyDatabaseFile(dbName) {
+  var sourceFileName = cordova.file.applicationDirectory + 'www/' + dbName;
+  var targetDirName = cordova.file.dataDirectory;
+  return Promise.all([
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(sourceFileName, resolve, reject);
+    }),
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(targetDirName, resolve, reject);
+    })
+  ]).then(function (files) {
+    var sourceFile = files[0];
+    var targetDir = files[1];
+    return new Promise(function (resolve, reject) {
+      targetDir.getFile(dbName, {}, resolve, reject);
+    }).then(function () {
+      showMessage("file already copied");
+    }).catch(function () {
+      showMessage("file doesn't exist, copying it");
+      return new Promise(function (resolve, reject) {
+        sourceFile.copyTo(targetDir, dbName, resolve, reject);
+      }).then(function () {
+        showMessage("database file copied");
+      });
+    });
+  });
 }
 
 
