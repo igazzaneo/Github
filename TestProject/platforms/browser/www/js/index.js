@@ -22,29 +22,32 @@ function logOut() {
     showMessage('DELETE error: ' + error.message);
   }, function() {
     showMessage('DELETE OK');
+    removeFromLocalStorage("loggedUser");
   });
 
 }
 
 //function logIn(username, password) {
-function logIn() {
+function logIn(login, password) {
 
-  var login='igazzaneo@gmail.com';
-  var password='password';
+  //var login='igazzaneo@gmail.com';
+  //var password='password';
 
   database.transaction(function(transaction) {
 
     var query = "SELECT * FROM utente WHERE email = ? and password = ?";
 
+    showMessage(query);
+
     transaction.executeSql(query, [login, password], function (transaction, resultSet) {
+
       var trovato = resultSet.rows.length;
+      showMessage(trovato);
 
       if(trovato > 0) {
 
-        saveOnLocalStorage();
-
         // Utente presente e credenziali ok
-        showMessage("Benvenuto: " + resultSet.rows.item(0).name + " - " + resultSet.rows.item[0].email);
+        showMessage("Benvenuto: " + resultSet.rows.item[0].name + " - " + resultSet.rows.item[0].email);
 
         // Aggiorno il campo logged
         database.transaction(function(transaction) {
@@ -67,7 +70,7 @@ function logIn() {
   }, function(error) {
     showMessage('LOGIN error: ' + error.message);
   }, function() {
-    //showMessage('LOGIN OK');
+    saveOnLocalStorage("loggedUser", "1");
   });
 
 }
@@ -117,8 +120,6 @@ function addRecord() {
   });
 }
 
-
-
 function goToPage2() {
   window.location = "page2.html";
 }
@@ -129,6 +130,8 @@ function goToPage(page) {
 
 function showMessage(message) {
   console.log(message);
+  console.log(window.cordova.platformId);
+
   if (window.cordova.platformId === 'osx')
     window.alert(message);
   else
@@ -141,11 +144,14 @@ function getValueFromLocalStorage(key) {
     return 0
   else
     return window.localStorage.getItem(key);
-
 }
 
-function saveOnLocalStorage() {
-  window.localStorage.setItem("loggedUser", "1");
+function saveOnLocalStorage(key, value) {
+  window.localStorage.setItem(key, value);
+}
+
+function removeFromLocalStorage(key) {
+  window.localStorage.removeItem(key);
 }
 
 function checkUser() {
@@ -160,13 +166,6 @@ function checkUser() {
     showMessage('Utente non loggato');
   }
 
-  //var recordCount = getRowCount();
-
-  /*if(getRowCount() == 0) {
-    showMessage('Utente non loggato');
-  } else {
-    goToPage2();
-  }*/
 }
 
 document.addEventListener('deviceready', function() {

@@ -6,61 +6,78 @@ var rowCount = 0;
 
 function initDatabase() {
 
-  //showMessage("In initDatabase");
-  database = sqlitePlugin.openDatabase({name: 'sample.db', location: 'default'});
-  showMessage("DB created!!!!");
+  database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
 
   database.transaction(function(transaction) {
-    transaction.executeSql('CREATE TABLE SampleTable (name, score)');
-    showMessage("Table created: " + rowCount);
+    transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
+    showMessage("Db initialized");
   });
 }
 
+function logOut() {
 
-/*function echoTest() {
-  sqlitePlugin.echoTest(function() {
-    showMessage('Echo test OK');
-  }, function(error) {
-    showMessage('Echo test ERROR: ' + error.message);
-  });
-}*/
-
-/*function selfTest() {
-  sqlitePlugin.selfTest(function() {
-    showMessage('Self test OK');
-  }, function(error) {
-    showMessage('Self test ERROR: ' + error.message);
-  });
-}*/
-
-/*function reload() {
-  location.reload();
-}*/
-
-/*function stringTest1() {
-  showMessage("Click...per dio!!!");
   database.transaction(function(transaction) {
-    transaction.executeSql("SELECT upper('Test string') AS upperText", [], function(ignored, resultSet) {
-      showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
-    });
+    transaction.executeSql('delete from utente');
   }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
+    showMessage('DELETE error: ' + error.message);
+  }, function() {
+    showMessage('DELETE OK');
+    removeFromLocalStorage("loggedUser");
   });
-}*/
 
-/*function stringTest2() {
+}
+
+//function logIn(username, password) {
+function logIn(login, password) {
+
+  //var login='igazzaneo@gmail.com';
+  //var password='password';
+
   database.transaction(function(transaction) {
-    transaction.executeSql('SELECT upper(?) AS upperText', ['Test string'], function(ignored, resultSet) {
-      showMessage('Got upperText result (ALL CAPS): ' + resultSet.rows.item(0).upperText);
+
+    var query = "SELECT * FROM utente WHERE email = ? and password = ?";
+
+    showMessage(query);
+
+    transaction.executeSql(query, [login, password], function (transaction, resultSet) {
+
+      var trovato = resultSet.rows.length;
+      showMessage(trovato);
+
+      if(trovato > 0) {
+
+        // Utente presente e credenziali ok
+        showMessage("Benvenuto: " + resultSet.rows.item[0].name + " - " + resultSet.rows.item[0].email);
+
+        // Aggiorno il campo logged
+        database.transaction(function(transaction) {
+          transaction.executeSql('update utente set logged=1');
+        }, function(error) {
+          showMessage('UPDATE error: ' + error.message);
+        }, function() {
+          showMessage('UPDATE OK');
+        });
+
+      } else {
+        showMessage('Nessun utente trovato!!!');
+      }
+
+    },
+    function (tx, error) {
+        console.log('SELECT error: ' + error.message);
     });
+
   }, function(error) {
-    showMessage('SELECT count error: ' + error.message);
+    showMessage('LOGIN error: ' + error.message);
+  }, function() {
+    saveOnLocalStorage("loggedUser", "1");
   });
-}*/
+
+}
 
 function showCount() {
   database.transaction(function(transaction) {
-    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM utente where logged=1', [], function(ignored, resultSet) {
       showMessage('RECORD COUNT: ' + resultSet.rows.item(0).recordCount);
     });
   }, function(error) {
@@ -70,16 +87,15 @@ function showCount() {
 
 function getRowCount() {
 
-
   database.transaction(function(transaction, rowCount) {
-    transaction.executeSql('SELECT count(*) AS recordCount FROM SampleTable', [], function(ignored, resultSet) {
+    transaction.executeSql('SELECT count(*) AS recordCount FROM utente where logged=1', [], function(ignored, resultSet) {
       rowCount = resultSet.rows.item(0).recordCount;
+
+      showMessage("RowCount: " + rowCount);
       return rowCount;
-      //setRowCount(resultSet.rows.item(0).recordCount);
     });
   }, function(error, rowCount) {
-    rowCount = 100;
-    //setRowCount(100);
+    rowCount = 0;
     showMessage('SELECT count error2: ' + error.message);
     return rowCount;
   });
@@ -95,7 +111,7 @@ function setRowCount(value) {
 
 function addRecord() {
   database.transaction(function(transaction) {
-    transaction.executeSql('INSERT INTO SampleTable VALUES (?,?)', ['User '+nextUser, nextUser]);
+    transaction.executeSql('INSERT INTO utente VALUES (?,?, ?, ?)', ['italo', 'igazzaneo@gmail.com', 'password', 0]);
   }, function(error) {
     showMessage('INSERT error: ' + error.message);
   }, function() {
@@ -103,64 +119,6 @@ function addRecord() {
     ++nextUser;
   });
 }
-
-/*function addJSONRecordsAfterDelay() {
-  function getJSONObjectArray() {
-    var COUNT = 100;
-    var myArray = [];
-
-    for (var i=0; i<COUNT; ++i) {
-      myArray.push({name: 'User '+nextUser, score: nextUser});
-      ++nextUser;
-    }
-
-    return myArray;
-  }
-
-  function getJSONAfterDelay() {
-    var MY_DELAY = 150;
-
-    var d = $.Deferred();
-
-    setTimeout(function() {
-      d.resolve(getJSONObjectArray());
-    }, MY_DELAY);
-
-    return $.when(d);
-  }
-
-  // NOTE: This is similar to the case when an application
-  // fetches the data over AJAX to populate the database.
-  // IMPORTANT: The application MUST get the data before
-  // starting the transaction.
-  getJSONAfterDelay().then(function(jsonObjectArray) {
-    database.transaction(function(transaction) {
-      $.each(jsonObjectArray, function(index, recordValue) {
-        transaction.executeSql('INSERT INTO SampleTable VALUES (?,?)',
-          [recordValue.name, recordValue.score]);
-      });
-    }, function(error) {
-      showMessage('ADD records after delay ERROR');
-    }, function() {
-      showMessage('ADD 100 records after delay OK');
-    });
-  });
-}*/
-
-/*function deleteRecords() {
-  database.transaction(function(transaction) {
-    transaction.executeSql('DELETE FROM SampleTable');
-  }, function(error) {
-    showMessage('DELETE error: ' + error.message);
-  }, function() {
-    showMessage('DELETE OK');
-    ++nextUser;
-  });
-}*/
-
-/*function alertTest() {
-  showMessage('Alert test message');
-}*/
 
 function goToPage2() {
   window.location = "page2.html";
@@ -172,58 +130,52 @@ function goToPage(page) {
 
 function showMessage(message) {
   console.log(message);
+  console.log(window.cordova.platformId);
+
   if (window.cordova.platformId === 'osx')
     window.alert(message);
   else
     navigator.notification.alert(message);
 }
 
+function getValueFromLocalStorage(key) {
+
+  if(window.localStorage.getItem(key) == null)
+    return 0
+  else
+    return window.localStorage.getItem(key);
+}
+
+function saveOnLocalStorage(key, value) {
+  window.localStorage.setItem(key, value);
+}
+
+function removeFromLocalStorage(key) {
+  window.localStorage.removeItem(key);
+}
+
 function checkUser() {
 
-  var recordCount = getRowCount();
+  var logged = getValueFromLocalStorage("loggedUser");
 
-  if(recordCount == 0) {
-    showMessage('Utente non loggato');
-  } else if(recordCount=100) {
-    goToPage("edit.html");
-  } else {
+  showMessage("Logged:" + logged);
+
+  if(logged == 1) {
     goToPage2();
+  } else {
+    showMessage('Utente non loggato');
   }
+
 }
 
 document.addEventListener('deviceready', function() {
-  //$('#alert-test').click(alertTest);
-  //$('#string-test-1').click(stringTest1);
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
-  $('#openEmail').click(openEmail);
-  /*$('#reload').click(reload);
+  $('#login').click(logIn);
+  $('#logout').click(logOut);
+  //$('#openEmail').click(openEmail);
 
-  $('#string-test-2').click(stringTest2);
-  $('#add-json-records-after-delay').click(addJSONRecordsAfterDelay);
-  $('#delete-records').click(deleteRecords);
-  $('#location-page2').click(goToPage2);*/
-
-  //initDatabase();
+  initDatabase();
 
 });
-
-function openEmail() {
-  showMessage("Click email");
-    cordova.plugins.email.open({
-            to:      'to@email.de',
-            cc:      ['cc1@email.de', 'cc2@email.de'],
-            bcc:     ['bcc1@email.de', 'bcc2@email.de'],
-            subject: 'Body with plain text',
-            body:    "aaaaaa",
-            isHtml:  false
-        });
-}
-
-window.fn = {};
-
-  window.fn.gotoPage = function(page) {
-    var content = document.getElementById('content');
-    content.load(page);
-  };

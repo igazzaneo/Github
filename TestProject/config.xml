@@ -87,7 +87,8 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <plugin name="cordova-plugin-file" spec="~6.0.1" />
-    <plugin name="cordova-plugin-file-transfer" spec="~1.5.1" />
     <plugin name="cordova-plugin-sqlite-2" spec="~1.0.4" />
     <plugin name="cordova-plugin-email-composer" spec="~0.9.1" />
+    <plugin name="cordova-plugin-dbcopy" spec="https://github.com/an-rahulpandey/cordova-plugin-dbcopy.git" />
+    <plugin name="cordova-plugin-file-transfer" spec="~1.5.1" />
 </widget>

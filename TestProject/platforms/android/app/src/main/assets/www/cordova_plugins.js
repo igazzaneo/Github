@@ -380,6 +380,14 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.email"
     ]
+  },
+  {
+    "id": "cordova-plugin-dbcopy.sqlDB",
+    "file": "plugins/cordova-plugin-dbcopy/www/sqlDB.js",
+    "pluginId": "cordova-plugin-dbcopy",
+    "clobbers": [
+      "window.plugins.sqlDB"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -396,7 +404,8 @@ module.exports.metadata =
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-file-transfer": "1.5.1",
   "cordova-plugin-sqlite-2": "1.0.4",
-  "cordova-plugin-email-composer": "0.9.1"
+  "cordova-plugin-email-composer": "0.9.1",
+  "cordova-plugin-dbcopy": "2.1.2"
 };
 // BOTTOM OF METADATA
 });

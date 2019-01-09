@@ -42,6 +42,9 @@
     },
     "cordova-plugin-email-composer": {
       "PACKAGE_NAME": "it.itlogix.app.agrilazio"
+    },
+    "cordova-plugin-dbcopy": {
+      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     }
   },
   "dependent_plugins": {}

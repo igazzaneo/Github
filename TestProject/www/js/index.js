@@ -6,12 +6,13 @@ var rowCount = 0;
 
 function initDatabase() {
 
-  database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
-
-  database.transaction(function(transaction) {
-    transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
-    showMessage("Db initialized");
-  });
+  //database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
+  //showMessage("Db initialized");
+  dbcopy();
+  //database.transaction(function(transaction) {
+    //transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
+    //showMessage("Db initialized");
+  //});
 }
 
 function logOut() {
@@ -27,11 +28,43 @@ function logOut() {
 
 }
 
-//function logIn(username, password) {
-function logIn() {
+function dbcopy()
+{
+        //Database filename to be copied is demo.db
 
-  var login='igazzaneo@gmail.com';
-  var password='password';
+        //location = 0, will copy the db to default SQLite Database Directory, /Library/LocalDatabase (Disable iCloud Backup)
+        //window.plugins.sqlDB.copy("demo.db", 0, copysuccess,copyerror);
+
+
+
+        //location = 1, will copy the database to /Library folder
+        //window.plugins.sqlDB.copy("demo.db", 1, copysuccess,copyerror);
+
+        //or
+        //location = 2, will copy the database to /Documents folder
+        window.plugins.sqlDB.copy("tusciasegreta.db", 2, copysuccess,copyerror);
+
+}
+
+function copysuccess()
+{
+        //open db and run your queries
+         database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
+         showMessage("Db initialized");
+}
+
+function copyerror(e)
+{
+        //db already exists or problem in copying the db file. Check the Log.
+        showMessage("Error Code = "+JSON.stringify(e));
+        //e.code = 516 => if db exists
+}
+
+//function logIn(username, password) {
+function logIn(login, password) {
+
+  //var login='igazzaneo@gmail.com';
+  //var password='password';
 
   database.transaction(function(transaction) {
 
