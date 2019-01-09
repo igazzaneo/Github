@@ -5,13 +5,32 @@ var nextUser = 101;
 var rowCount = 0;
 
 function initDatabase() {
-showMessage("Trying to copy...");
-  dbCopy();
-  //database.transaction(function(transaction) {
-    //transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
-    //showMessage("Db initialized");
-  //});
+  showMessage("Check DB on storage...");
+  window.resolveLocalFileSystemURL(cordova.file.applicationStorageDirectory + "/databases/tusciasegreta.db", selectDataFromDB, setupDB);
+
 }
+
+// Success method
+function selectDataFromDB() {
+
+  database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+}
+
+// Fail Method
+function setupDB() {
+    //newDB = window.sqlitePlugin.openDatabase({ name: "<NewImprovedDBName>.db" });
+    //newDB.transaction(sql.initDB, sql.errorCallback, sql.successCallBack);
+    showMessage("DB non presente...qui devo crearlo e popolarlo!");
+}
+
 
 function logOut() {
 
@@ -45,16 +64,7 @@ function copyerror(e)
         //e.code = 516 => if db exists
 }
 
-function openDB() {
 
-  database.transaction(function(transaction) {
-    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
-    });
-  }, function(error) {
-    showMessage('SELECT error: ' + error.message);
-  });
-}
 
 //function logIn(username, password) {
 function logIn(login, password) {
