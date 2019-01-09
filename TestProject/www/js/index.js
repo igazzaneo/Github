@@ -6,7 +6,7 @@ var rowCount = 0;
 
 function initDatabase() {
   showMessage("Check DB on storage...");
-  window.resolveLocalFileSystemURL(cordova.file.applicationStorageDirectory + "/databases/tusciasegreta.db", selectDataFromDB, setupDB);
+  window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/tusciasegreta.db", selectDataFromDB, setupDB);
 
 }
 
@@ -34,7 +34,7 @@ function setupDB() {
     });
   }*/
 
-  copyDatabaseFile('tusciasegreta.db').then(function () {
+    copyDatabaseFile('tusciasegreta.db').then(function () {
     // success! :)
     showMessage("DB copiato e aperto!!");
     database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
