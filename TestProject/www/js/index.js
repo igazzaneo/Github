@@ -6,9 +6,7 @@ var rowCount = 0;
 
 function initDatabase() {
 
-  //database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
-  //showMessage("Db initialized");
-  dbcopy();
+  dbCopy();
   //database.transaction(function(transaction) {
     //transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
     //showMessage("Db initialized");
@@ -30,27 +28,13 @@ function logOut() {
 
 function dbcopy()
 {
-        //Database filename to be copied is demo.db
-
-        //location = 0, will copy the db to default SQLite Database Directory, /Library/LocalDatabase (Disable iCloud Backup)
-        //window.plugins.sqlDB.copy("demo.db", 0, copysuccess,copyerror);
-
-
-
-        //location = 1, will copy the database to /Library folder
-        //window.plugins.sqlDB.copy("demo.db", 1, copysuccess,copyerror);
-
-        //or
-        //location = 2, will copy the database to /Documents folder
-        window.plugins.sqlDB.copy("tusciasegreta.db", 2, copysuccess,copyerror);
-
+    window.plugins.sqlDB.copy("tusciasegreta.db", 0, copysuccess,copyerror);
 }
 
 function copysuccess()
 {
-        //open db and run your queries
-         database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
-         showMessage("Db initialized");
+    database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
+    showMessage("Db initialized");
 }
 
 function copyerror(e)
