@@ -196,6 +196,17 @@ function checkUser() {
 
 }
 
+function openEmail() {
+  cordova.plugins.email.open({
+      to:      'max@mustermann.de',
+      cc:      'erika@mustermann.de',
+      bcc:     ['john@doe.com', 'jane@doe.com'],
+      subject: 'Greetings',
+      body:    'How are you? Nice greetings from Leipzig'
+  });
+
+}
+
 document.addEventListener('deviceready', function() {
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
@@ -203,7 +214,7 @@ document.addEventListener('deviceready', function() {
   $('#login').click(logIn);
   $('#logout').click(logOut);
   $('#openDB').click(openDB);
-  //$('#openEmail').click(openEmail);
+  $('#openEmail').click(openEmail);
 
   initDatabase();
 
