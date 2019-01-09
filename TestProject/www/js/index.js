@@ -5,7 +5,7 @@ var nextUser = 101;
 var rowCount = 0;
 
 function initDatabase() {
-
+showMessage("Trying to copy...");
   dbCopy();
   //database.transaction(function(transaction) {
     //transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
@@ -33,6 +33,7 @@ function dbcopy()
 
 function copysuccess()
 {
+    showMessage("OnSuccess!!!!");
     database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
     showMessage("Db initialized");
 }
@@ -197,7 +198,7 @@ function checkUser() {
 }
 
 function openEmail() {
-  cordova.plugins.email.open({
+  window.plugins.email.open({
       to:      'max@mustermann.de',
       cc:      'erika@mustermann.de',
       bcc:     ['john@doe.com', 'jane@doe.com'],
