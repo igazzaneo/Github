@@ -13,7 +13,7 @@ function initDatabase() {
 // Success method
 function selectDataFromDB() {
 
-  database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
+  database = sqlitePlugin.openDatabase({name: "copied_tusciasegreta.db"});
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
@@ -37,7 +37,7 @@ function setupDB() {
     copyDatabaseFile('tusciasegreta.db').then(function () {
     // success! :)
     showMessage("DB copiato e aperto!!");
-    database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
+    database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
   }).catch(function (err) {
     // error! :(
     showMessage(err);
@@ -66,7 +66,7 @@ function copyDatabaseFile(dbName) {
     }).catch(function () {
       showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
-        sourceFile.copyTo(targetDir, dbName, resolve, reject);
+        sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
         showMessage("database file copied");
       });
