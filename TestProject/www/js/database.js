@@ -216,7 +216,7 @@ function checkUser() {
 function getElencoSiti() {
 
   showMessage("onGetElencoSiti()");
-  var elenco = Array();
+  var elenco = new Array();
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
