@@ -5,14 +5,75 @@ var nextUser = 101;
 var rowCount = 0;
 
 function initDatabase() {
+  showMessage("Check DB on storage...");
+  window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db", selectDataFromDB, setupDB);
 
-  database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
+}
+
+// Success method
+function selectDataFromDB() {
+
+  database = sqlitePlugin.openDatabase({name: "copied_tusciasegreta.db"});
 
   database.transaction(function(transaction) {
-    transaction.executeSql('CREATE TABLE utente (name, email, password, logged)');
-    showMessage("Db initialized");
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
   });
 }
+
+// Fail Method
+function setupDB() {
+
+  /*database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
+
+  database.transaction(function(transaction) {
+      transaction.executeSql('CREATE TABLE sito (id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, denominazione	TEXT NOT NULL, descrizione TEXT NOT NULL, video	TEXT, latitudine	NUMERIC NOT NULL, longitudine	NUMERIC NOT NULL)');
+    });
+  }*/
+
+    copyDatabaseFile('tusciasegreta.db').then(function () {
+    // success! :)
+    showMessage("DB copiato e aperto!!");
+    database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
+  }).catch(function (err) {
+    // error! :(
+    showMessage(err);
+  });
+
+}
+
+// copy a database file from www/ in the app directory to the data directory
+function copyDatabaseFile(dbName) {
+  var sourceFileName = cordova.file.applicationDirectory + 'www/' + dbName;
+  var targetDirName = cordova.file.dataDirectory;
+  return Promise.all([
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(sourceFileName, resolve, reject);
+    }),
+    new Promise(function (resolve, reject) {
+      resolveLocalFileSystemURL(targetDirName, resolve, reject);
+    })
+  ]).then(function (files) {
+    var sourceFile = files[0];
+    var targetDir = files[1];
+    return new Promise(function (resolve, reject) {
+      targetDir.getFile(dbName, {}, resolve, reject);
+    }).then(function () {
+      showMessage("file already copied");
+    }).catch(function () {
+      showMessage("file doesn't exist, copying it");
+      return new Promise(function (resolve, reject) {
+        sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
+      }).then(function () {
+        showMessage("database file copied");
+      });
+    });
+  });
+}
+
 
 function logOut() {
 
@@ -26,6 +87,9 @@ function logOut() {
   });
 
 }
+
+
+
 
 //function logIn(username, password) {
 function logIn(login, password) {
@@ -168,13 +232,25 @@ function checkUser() {
 
 }
 
+function openEmail() {
+  window.plugins.email.open({
+      to:      'max@mustermann.de',
+      cc:      'erika@mustermann.de',
+      bcc:     ['john@doe.com', 'jane@doe.com'],
+      subject: 'Greetings',
+      body:    'How are you? Nice greetings from Leipzig'
+  });
+
+}
+
 document.addEventListener('deviceready', function() {
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
   $('#login').click(logIn);
   $('#logout').click(logOut);
-  //$('#openEmail').click(openEmail);
+  $('#openDB').click(openDB);
+  $('#openEmail').click(openEmail);
 
   initDatabase();
 
