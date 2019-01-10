@@ -6,7 +6,7 @@ var rowCount = 0;
 
 function initDatabase() {
   showMessage("Check DB on storage...");
-  window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/tusciasegreta.db", selectDataFromDB, setupDB);
+  window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db", selectDataFromDB, setupDB);
 
 }
 
@@ -88,24 +88,6 @@ function logOut() {
 
 }
 
-function dbcopy()
-{
-    window.plugins.sqlDB.copy("tusciasegreta.db", 0, copysuccess,copyerror);
-}
-
-function copysuccess()
-{
-    showMessage("OnSuccess!!!!");
-    database = sqlitePlugin.openDatabase({name: "tusciasegreta.db"});
-    showMessage("Db initialized");
-}
-
-function copyerror(e)
-{
-        //db already exists or problem in copying the db file. Check the Log.
-        showMessage("Error Code = "+JSON.stringify(e));
-        //e.code = 516 => if db exists
-}
 
 
 
