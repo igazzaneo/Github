@@ -1,0 +1,41 @@
+<ons-page>
+
+    <div id="mapid5"></div>
+
+    <script type='text/javascript'>
+
+      var map = new GMaps({
+          div: '#mapid5',
+          lat: 42.4156077,
+          lng: 12.0972389
+      });
+
+      /*map.drawRoute({
+        origin: [42.4156077,12.0972389],
+        destination: [42.585280, 11.933396],
+        travelMode: 'driving',
+        strokeColor: '#131540',
+        strokeOpacity: 0.6,
+        strokeWeight: 6
+      });*/
+
+      map.travelRoute({
+        origin: [42.4156077,12.0972389],
+        destination: [42.585280, 11.933396],
+        travelMode: 'driving',
+        step: function(e) {
+          $('#instructions').append('<li>'+e.instructions+'</li>');
+          $('#instructions li:eq(' + e.step_number + ')').delay(450 * e.step_number).fadeIn(200, function() {
+            map.drawPolyline({
+              path: e.path,
+              strokeColor: '#131540',
+              strokeOpacity: 0.6,
+              strokeWeight: 6
+            });
+          });
+        }
+      });
+
+    </script>
+
+</ons-page>

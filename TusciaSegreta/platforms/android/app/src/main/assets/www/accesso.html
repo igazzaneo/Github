@@ -20,6 +20,7 @@
       </div>
     </ons-card>
     <ons-card>
+      <form id="loginForm">
       <div style="content">
         <div class="wrap-input100 validate-input" data-validate="Nome utente obbligatorio">
 					<input class="input100" id="username" type="text" name="username" placeholder="Nome utente">
@@ -36,11 +37,11 @@
         <div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">
 						<div class="contact100-form-bgbtn"></div>
-						<button class="contact100-form-btn" onclick="accessoDaApp()">Accedi</button>
+						<button type="button" class="contact100-form-btn" id="submitButton" onclick="accessoDaApp()">Accedi</button>
 					</div>
 				</div>
       </div>
-
+      </form>
     </ons-card>
 
     <ons-list>

@@ -1,0 +1,125 @@
+
+<ons-page>
+  <script>
+    $(document).ready(function(){
+      $('.owl-carousel').owlCarousel({
+          loop:true,
+          margin:10,
+          nav:true,
+          responsive:{
+              0:{
+                  items:1
+              },
+              600:{
+                  items:3
+              },
+              1000:{
+                  items:5
+              }
+          }
+      })
+    });
+  </script>
+  <ons-toolbar style="background-color: #000000">
+    <div class="left" style="width: 50px">
+      <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="fa-info" size="40px"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center"><img src="img/logo_tool.png" height="55px"></div>
+    <div class="right" style="width: 50px">
+      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')"></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+    <ons-card style="background-color: #adadad; color: #ffffff; padding: 1px; text-align: center;">
+      <div class="title">
+        Chi siamo
+      </div>
+    </ons-card>
+
+    <ons-card>
+      <div align="center">
+        <img src="img/logo_archeomatica.png" style="width: 70%">
+      </div>
+      <div class="content"  style="background-color:'#FFFFFF'">
+        ARCHEOMATICA è una startup innovativa che nasce a Viterbo da professionisti dell’archeologia
+        per la fornitura di servizi archeologici aggiornati ed innovativi.
+        <br><br>
+        Grazie alla grande esperienza maturata, conoscendo le potenzialità e le criticità del patrimonio
+        culturale del territorio, abbiamo deciso di rinnovare e rivoluzionare l’approccio e la fruizione dei
+        numerosi luoghi di interesse storico-archeologico della Tuscia.
+      </div>
+    </ons-card>
+    <ons-card>
+      <div class="owl-carousel owl-theme" align="center">
+          <div class="item">
+            <div>
+              <div class="client-info">
+                <span class="client-name">Damiano Paoletti</span><br>
+                <span class="client-company">Archeomatica</span>
+              </div>
+              <div class="client-details">
+                <img src="img/avatar/Damiano-160x160.png" class="client-image">
+              </div>
+              <div class="testimonial-say">
+                <span class="client-say">
+                  <p>Alcuni luoghi sono un enigma, altri una spiegazione.</p>
+                  <p>(Fabrizio Caramagna)</p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="client-info">
+                <span class="client-name">Cinzia Zegretti</span><br>
+                <span class="client-company">Archeomatica</span>
+              </div>
+              <div class="client-details">
+                <img src="img/avatar/Cinzia2-160x160.png" class="client-image">
+              </div>
+              <div class="testimonial-say">
+                <span class="client-say">
+                  <p>Quando lasci un bel posto, lo porti con te ovunque tu vada</p>
+                  <p>(Alexandra Stoddard)</p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="client-info">
+                <span class="client-name">Marco Cesare Regno</span><br>
+                <span class="client-company">Archeomatica</span>
+              </div>
+              <div class="client-details">
+                <img src="img/avatar/Marco-160x160.png" class="client-image">
+              </div>
+              <div class="testimonial-say">
+                <span class="client-say">
+                  <p>Non c'è niente come tornare in un luogo che non è cambiato, per rendersi conto di quanto sei cambiato.</p>
+                  <p>(Nelson Mandela)</p>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div>
+              <div class="client-info">
+                <span class="client-name">Sergio Pregagnoli</span><br>
+                <span class="client-company">Archeomatica</span>
+              </div>
+              <div class="client-details">
+                <img src="img/avatar/Sergio-160x160.png" class="client-image">
+              </div>
+              <div class="testimonial-say">
+                <span class="client-say">
+                  <p>Finchè si avranno passioni, non si cesserà di scoprire il mondo.</p>
+                  <p>(Cesare Pavese)</p>
+                </span>
+              </div>
+            </div>
+          </div>
+      </div>
+    </ons-card>
+</ons-page>

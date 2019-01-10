@@ -1,0 +1,53 @@
+<ons-page>
+  <ons-toolbar style="background-color: #000000">
+    <div class="left" style="width: 50px">
+      <ons-toolbar-button onclick="fn.open()">
+        <ons-icon icon="fa-info-circle" size="40px"></ons-icon>
+      </ons-toolbar-button>
+    </div>
+    <div class="center"><img src="img/logo_tool.png" height="55px"></div>
+    <div class="right" style="width: 50px">
+      <ons-toolbar-button icon="fa-user" size="40px" onclick="fn.gotoPage('accesso.html')"></ons-toolbar-button>
+    </div>
+  </ons-toolbar>
+
+
+    <ons-card style="background-color: #adadad; color: #ffffff">
+      <div class="title">
+        Contattaci
+      </div>
+    </ons-card>
+    <ons-card>
+      <div style="content">
+        <div class="wrap-input100 validate-input" data-validate="Il nome è obbligatorio">
+					<input class="input100" id="name" type="text" name="name" placeholder="Nome">
+					<label class="label-input100" for="name">
+						<span class="fa fa-user"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input" data-validate="L'indirizzo email è obbligatorio">
+					<input class="input100" id="email" type="text" name="email" placeholder="Email">
+					<label class="label-input100" for="email">
+						<span class="far fa-envelope"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input" data-validate="Inserire preferibilmente il numero di telefono">
+					<input class="input100" id="telefono" type="text" name="telefono" placeholder="telefono">
+					<label class="label-input100" for="email">
+						<span class="fas fa-mobile-alt"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input" data-validate="Inserire un messaggio da inviare">
+					<textarea class="input100" name="message" rows="4" placeholder="Inserisci il tuo messaggio..."></textarea>
+				</div>
+        <div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn">
+							Invia messaggio
+						</button>
+					</div>
+				</div>
+      </div>
+    </ons-card>
+</ons-page>

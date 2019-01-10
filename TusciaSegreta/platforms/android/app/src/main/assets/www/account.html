@@ -17,7 +17,9 @@
       </div>
     </ons-card>
     <ons-card>
+
       <div style="content">
+        <form id="registrazione">
         <div class="wrap-input100 validate-input" data-validate="Indirizzo email obbligatorio">
 					<input class="input100" id="email" type="text" name="email" placeholder="Indirizzo email">
 					<label class="label-input100" for="email">
@@ -46,9 +48,10 @@
         <div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">
 						<div class="contact100-form-bgbtn"></div>
-						<button class="contact100-form-btn" onclick="registrazioneDaApp()">Registrati</button>
+						<button type="button" id="submitButton" class="contact100-form-btn" onclick="registrazioneDaApp()">Registrati</button>
 					</div>
 				</div>
+        </form>
 
         <br/>
         <div align="center">Oppure</div>

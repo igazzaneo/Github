@@ -1,0 +1,79 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-sqlite-2": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-actionsheet": {
+            "PACKAGE_NAME": "it.itlogix.app.tuscia"
+        }
+    }
+}
