@@ -219,30 +219,11 @@ function getElencoSiti() {
   var elenco = Array();
 
   database.transaction(function(transaction) {
-
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-
-      showMessage("Siti trovati: " + resultSet.rows.length)
-
-      /*for(var x = 0; x < resultSet.rows.length; x++) {
-
-        var riga = new Array();
-        riga[0] = resultSet.rows.item(x).id;
-        riga[1] = resultSet.rows.item(x).denominazione;
-        riga[2] = resultSet.rows.item(x).descrizione;
-        riga[3] = resultSet.rows.item(x).video;
-        riga[4] = resultSet.rows.item(x).latitudine;
-        riga[5] = resultSet.rows.item(x).longitudine;
-
-        elenco[x] = riga;
-      }
-      return elenco;*/
-      //showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
-    }, function(e) {
-      showMessage('Select ERROR: ' + e.message);
+      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
     });
   }, function(error) {
-    showMessage('Transaction error: ' + error.message);
+    showMessage('SELECT error: ' + error.message);
   });
 
   //return elenco;
