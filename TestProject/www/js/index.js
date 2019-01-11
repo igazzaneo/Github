@@ -33,8 +33,7 @@ function setupDB() {
   copyDatabaseFile('tusciasegreta.db').then(function () {
     // success! :)
     showMessage("DB copiato e aperto!!");
-    database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
-    getElencoSiti();
+    selectDataFromDB();
     /*database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
         showMessage('SetupDB - Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
@@ -304,6 +303,28 @@ function showSiti() {
 
 }
 
+
+function testEmail() {
+
+  $.ajax({
+    type: 'POST',
+    //x-apikey: 588ca78ff2c06c15467a12cc
+    url: 'https://tusciasegreta-0406.restdb.io/mail',
+    data: {
+        "x-apikey": "588ca78ff2c06c15467a12cc",
+        "to":"igazzaneo@gmail.com",
+        "subject":"Your order is ready",
+        "html": "<p>Lorem ipsum dolor..., <b>vel</b> luctu.</p>",
+        "company": "Acme Inc",
+        "sendername": "Acme customer support"
+    }
+
+   }).done(function(response) {
+     console.log(response); // if you're into that sorta thing
+   });
+
+}
+
 document.addEventListener('deviceready', function() {
 
   $('#add-record').click(addRecord);
@@ -313,12 +334,8 @@ document.addEventListener('deviceready', function() {
   $('#logout').click(logOut);
   $('#openDB').click(openDB);
   $('#openEmail').click(showSiti);
+  $('#testEmail').click(testEmail);
 
-  //alert("device ready - InitDatabase");
   initDatabase();
-  //alert("device ready - getElencoSiti");
-  //getElencoSiti();
-  //alert("device ready - Siti trovati: " + siti.length);
-
 
 });
