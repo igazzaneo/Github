@@ -4,6 +4,8 @@ var nextUser = 101;
 
 var rowCount = 0;
 
+var siti = [];
+
 function initDatabase() {
   showMessage("Check DB on storage...");
   window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db", selectDataFromDB, setupDB);
@@ -271,11 +273,11 @@ function openDB() {
 function getElencoSiti() {
 
   showMessage("onGetElencoSiti()");
-  var elenco = Array();
+  var elenco = new Array();
+  siti = new Array();
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-      showMessage("Siti trovati: " + resultSet.rows.length)
 
       for(var x = 0; x < resultSet.rows.length; x++) {
 
@@ -292,10 +294,12 @@ function getElencoSiti() {
         elenco[x] = riga;
       }
 
-
+      siti = elenco;
     });
   }, function(error) {
     showMessage('SELECT error: ' + error.message);
+  }, function() {
+    showMessage("Siti trovati: " + siti.length);
   });
 
   //return elenco;
@@ -312,5 +316,8 @@ document.addEventListener('deviceready', function() {
   $('#openEmail').click(getElencoSiti);
 
   initDatabase();
+  getElencoSiti();
+  showMessage("Siti trovati: " + siti.length);
+
 
 });
