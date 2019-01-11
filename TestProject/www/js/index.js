@@ -268,14 +268,48 @@ function openDB() {
   //return elenco;
 }
 
+function getElencoSiti() {
+
+  showMessage("onGetElencoSiti()");
+  var elenco = Array();
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage("Siti trovati: " + resultSet.rows.length)
+
+      for(var x = 0; x < resultSet.rows.length; x++) {
+
+        var riga = new Array();
+        riga[0] = resultSet.rows.item(x).id;
+        riga[1] = resultSet.rows.item(x).denominazione;
+        riga[2] = resultSet.rows.item(x).descrizione;
+        riga[3] = resultSet.rows.item(x).video;
+        riga[4] = resultSet.rows.item(x).latitudine;
+        riga[5] = resultSet.rows.item(x).longitudine;
+
+        showMessage('Denominazione: ' + riga[1] + ' - Video: ' + riga[3] + ' - Coordinate: ' + riga[4] + " - " + riga[5];
+
+        elenco[x] = riga;
+      }
+
+
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+
+  //return elenco;
+}
+
 document.addEventListener('deviceready', function() {
+
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
   $('#login').click(logIn);
   $('#logout').click(logOut);
   $('#openDB').click(openDB);
-  $('#openEmail').click(openEmail);
+  $('#openEmail').click(getElencoSiti);
 
   initDatabase();
 
