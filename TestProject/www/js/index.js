@@ -38,6 +38,15 @@ function setupDB() {
     // success! :)
     showMessage("DB copiato e aperto!!");
     database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
+
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+        showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+      });
+    }, function(error) {
+      showMessage('SELECT error: ' + error.message);
+    });
+
   }).catch(function (err) {
     // error! :(
     showMessage(err);
@@ -241,6 +250,22 @@ function openEmail() {
       body:    'How are you? Nice greetings from Leipzig'
   });
 
+}
+
+fnction openDB() {
+
+  showMessage("openDB()");
+  //var elenco = new Array();
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+
+  //return elenco;
 }
 
 document.addEventListener('deviceready', function() {
