@@ -34,14 +34,14 @@ function setupDB() {
     // success! :)
     showMessage("DB copiato e aperto!!");
     database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
-
-    database.transaction(function(transaction) {
+    getElencoSiti();
+    /*database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
         showMessage('SetupDB - Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
       });
     }, function(error) {
       showMessage('SELECT error: ' + error.message);
-    });
+    });*/
 
   }).catch(function (err) {
     // error! :(
@@ -293,6 +293,17 @@ function getElencoSiti() {
   //return elenco;
 }
 
+function showSiti() {
+  showMessage("OnShowSiti...");
+  for(var x = 0; x < siti.length; x++) {
+
+    riga = siti[x];
+    showMessage(' - Denominazione: ' + riga[1]);
+
+  }
+
+}
+
 document.addEventListener('deviceready', function() {
 
   $('#add-record').click(addRecord);
@@ -301,13 +312,13 @@ document.addEventListener('deviceready', function() {
   $('#login').click(logIn);
   $('#logout').click(logOut);
   $('#openDB').click(openDB);
-  $('#openEmail').click(getElencoSiti);
+  $('#openEmail').click(showSiti);
 
-  alert("device ready - InitDatabase");
+  //alert("device ready - InitDatabase");
   initDatabase();
-  alert("device ready - getElencoSiti");
-  getElencoSiti();
-  alert("device ready - Siti trovati: " + siti.length);
+  //alert("device ready - getElencoSiti");
+  //getElencoSiti();
+  //alert("device ready - Siti trovati: " + siti.length);
 
 
 });
