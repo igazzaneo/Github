@@ -287,7 +287,7 @@ function getElencoSiti() {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        showMessage('Denominazione: ' + riga[1] + ' - Video: ' + riga[3] + ' - Coordinate: ' + riga[4] + " - " + riga[5];
+        showMessage('Denominazione: ' + riga[1] + ' - Video: ' + riga[3] + ' - Coordinate: ' + riga[4] + " - " + riga[5]);
 
         elenco[x] = riga;
       }

@@ -38,6 +38,15 @@ function setupDB() {
     // success! :)
     showMessage("DB copiato e aperto!!");
     database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
+
+    database.transaction(function(transaction) {
+      transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+        showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+      });
+    }, function(error) {
+      showMessage('SELECT error: ' + error.message);
+    });
+
   }).catch(function (err) {
     // error! :(
     showMessage(err);
@@ -243,14 +252,64 @@ function openEmail() {
 
 }
 
+function openDB() {
+
+  showMessage("openDB()");
+  //var elenco = new Array();
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+
+  //return elenco;
+}
+
+function getElencoSiti() {
+
+  showMessage("onGetElencoSiti()");
+  var elenco = Array();
+
+  database.transaction(function(transaction) {
+    transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
+      showMessage("Siti trovati: " + resultSet.rows.length)
+
+      for(var x = 0; x < resultSet.rows.length; x++) {
+
+        var riga = new Array();
+        riga[0] = resultSet.rows.item(x).id;
+        riga[1] = resultSet.rows.item(x).denominazione;
+        riga[2] = resultSet.rows.item(x).descrizione;
+        riga[3] = resultSet.rows.item(x).video;
+        riga[4] = resultSet.rows.item(x).latitudine;
+        riga[5] = resultSet.rows.item(x).longitudine;
+
+        showMessage('Denominazione: ' + riga[1] + ' - Video: ' + riga[3] + ' - Coordinate: ' + riga[4] + " - " + riga[5]);
+
+        elenco[x] = riga;
+      }
+
+
+    });
+  }, function(error) {
+    showMessage('SELECT error: ' + error.message);
+  });
+
+  //return elenco;
+}
+
 document.addEventListener('deviceready', function() {
+
   $('#add-record').click(addRecord);
   $('#show-count').click(showCount);
   $('#checkuser').click(checkUser);
   $('#login').click(logIn);
   $('#logout').click(logOut);
   $('#openDB').click(openDB);
-  $('#openEmail').click(openEmail);
+  $('#openEmail').click(getElencoSiti);
 
   initDatabase();
 
