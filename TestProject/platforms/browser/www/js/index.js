@@ -293,13 +293,13 @@ function getElencoSiti() {
 
         elenco[x] = riga;
       }
-
+      showMessage("Setting siti = elenco...")
       siti = elenco;
     });
   }, function(error) {
     showMessage('SELECT error: ' + error.message);
   }, function() {
-    showMessage("Siti trovati: " + siti.length);
+    showMessage("Transazione ok");
   });
 
   //return elenco;
