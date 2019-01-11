@@ -16,14 +16,15 @@ function initDatabase() {
 function selectDataFromDB() {
 
   database = sqlitePlugin.openDatabase({name: "copied_tusciasegreta.db"});
+  getElencoSiti();
 
-  database.transaction(function(transaction) {
+  /*database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
       showMessage('selectDataFromDB - Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
     });
   }, function(error) {
     showMessage('SELECT error: ' + error.message);
-  });
+  });*/
 }
 
 // Fail Method
