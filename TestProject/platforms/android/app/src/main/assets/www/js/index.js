@@ -7,7 +7,7 @@ var rowCount = 0;
 var siti = [];
 
 function initDatabase() {
-  showMessage("Check DB on storage...");
+  //showMessage("Check DB on storage...");
   window.resolveLocalFileSystemURL(cordova.file.dataDirectory + "/copied_tusciasegreta.db", selectDataFromDB, setupDB);
 
 }
@@ -19,7 +19,7 @@ function selectDataFromDB() {
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+      showMessage('selectDataFromDB - Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
     });
   }, function(error) {
     showMessage('SELECT error: ' + error.message);
@@ -29,21 +29,14 @@ function selectDataFromDB() {
 // Fail Method
 function setupDB() {
 
-  /*database = sqlitePlugin.openDatabase({name: 'tusciasegreta.db', location: 'default'});
-
-  database.transaction(function(transaction) {
-      transaction.executeSql('CREATE TABLE sito (id	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, denominazione	TEXT NOT NULL, descrizione TEXT NOT NULL, video	TEXT, latitudine	NUMERIC NOT NULL, longitudine	NUMERIC NOT NULL)');
-    });
-  }*/
-
-    copyDatabaseFile('tusciasegreta.db').then(function () {
+  copyDatabaseFile('tusciasegreta.db').then(function () {
     // success! :)
     showMessage("DB copiato e aperto!!");
     database = sqlitePlugin.openDatabase({name: 'copied_tusciasegreta.db', location: 'default'});
 
     database.transaction(function(transaction) {
       transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-        showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+        showMessage('SetupDB - Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
       });
     }, function(error) {
       showMessage('SELECT error: ' + error.message);
@@ -73,13 +66,13 @@ function copyDatabaseFile(dbName) {
     return new Promise(function (resolve, reject) {
       targetDir.getFile(dbName, {}, resolve, reject);
     }).then(function () {
-      showMessage("file already copied");
+      //showMessage("file already copied");
     }).catch(function () {
-      showMessage("file doesn't exist, copying it");
+      //showMessage("file doesn't exist, copying it");
       return new Promise(function (resolve, reject) {
         sourceFile.copyTo(targetDir, 'copied_' + dbName, resolve, reject);
       }).then(function () {
-        showMessage("database file copied");
+        showMessage("Copia effettuata");
       });
     });
   });
@@ -99,14 +92,7 @@ function logOut() {
 
 }
 
-
-
-
-//function logIn(username, password) {
 function logIn(login, password) {
-
-  //var login='igazzaneo@gmail.com';
-  //var password='password';
 
   database.transaction(function(transaction) {
 
@@ -261,7 +247,7 @@ function openDB() {
 
   database.transaction(function(transaction) {
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
-      showMessage('Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
+      showMessage('openDB - Denominazione: ' + resultSet.rows.item(0).denominazione + ' - Video: ' + resultSet.rows.item(0).video + ' - Coordinate: ' + resultSet.rows.item(0).latitudine + " - " + + resultSet.rows.item(0).longitudine);
     });
   }, function(error) {
     showMessage('SELECT error: ' + error.message);
@@ -277,6 +263,7 @@ function getElencoSiti() {
   siti = new Array();
 
   database.transaction(function(transaction) {
+    showMessage("onGetElencoSiti() - transaction...");
     transaction.executeSql('SELECT * FROM sito', [], function(ignored, resultSet) {
 
       for(var x = 0; x < resultSet.rows.length; x++) {
@@ -289,7 +276,7 @@ function getElencoSiti() {
         riga[4] = resultSet.rows.item(x).latitudine;
         riga[5] = resultSet.rows.item(x).longitudine;
 
-        showMessage('Denominazione: ' + riga[1] + ' - Video: ' + riga[3] + ' - Coordinate: ' + riga[4] + " - " + riga[5]);
+        showMessage('onGetElencoSiti() - Denominazione: ' + riga[1] + ' - Video: ' + riga[3] + ' - Coordinate: ' + riga[4] + " - " + riga[5]);
 
         elenco[x] = riga;
       }
@@ -315,9 +302,11 @@ document.addEventListener('deviceready', function() {
   $('#openDB').click(openDB);
   $('#openEmail').click(getElencoSiti);
 
+  alert("device ready - InitDatabase");
   initDatabase();
+  alert("device ready - getElencoSiti");
   getElencoSiti();
-  showMessage("Siti trovati: " + siti.length);
+  alert("device ready - Siti trovati: " + siti.length);
 
 
 });
