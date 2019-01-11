@@ -252,7 +252,7 @@ function openEmail() {
 
 }
 
-fnction openDB() {
+function openDB() {
 
   showMessage("openDB()");
   //var elenco = new Array();
