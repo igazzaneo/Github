@@ -30,18 +30,6 @@
     },
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "it.itlogix.app.agrilazio"
-    },
-    "cordova-plugin-email-composer": {
-      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
-    },
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
-    },
-    "cordova-plugin-dbcopy": {
-      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
-    },
-    "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "it.itlogix.app.agrilazio"
     }
   },
   "dependent_plugins": {}
