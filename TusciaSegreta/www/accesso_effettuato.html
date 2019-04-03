@@ -1,4 +1,27 @@
 <ons-page>
+  <script>
+    $( document ).ready(function() {
+
+      var form = $("#dettaglioForm");
+      var cognome = getValueFromLocalStorage('cognome');
+      var nome = getValueFromLocalStorage('nome');
+      var nome_utente = getValueFromLocalStorage('nome_utente');
+      var cellulare = getValueFromLocalStorage('cellulare');
+
+      //alert(cognome + nome + nome_utente + cellulare);
+
+      $('#cognome', form).val(cognome);
+      $('#cognome',form).attr('disabled','disabled');
+      $('#nome', form).val(nome);
+      $('#nome', form).attr('disabled','disabled');
+      $('#nome_utente', form).val(nome_utente);
+      $('#username', form).attr('disabled','disabled');
+      $('#cellulare', form).val(cellulare);
+      $('#cellulare', form).attr('disabled','disabled');
+
+    });
+
+  </script>
   <ons-toolbar style="background-color: #000000">
     <div class="left" style="width: 50px">
       <ons-toolbar-button onclick="fn.open()">
@@ -18,42 +41,33 @@
     </ons-card>
     <ons-card>
       <div style="content">
+
+        <form id="dettaglioForm">
         <div class="wrap-input100 validate-input">
 					<input class="input100" id="cognome" type="text" name="cognome" placeholder="Cognome">
 					<label class="label-input100" for="cognome">
-						<span class="fas fa-id_card"></span>
+						<span class="fas fa-id-card"></span>
 					</label>
 				</div>
         <div class="wrap-input100 validate-input">
-					<input class="input100" id="name" type="text" name="nome" placeholder="Nome">
-					<label class="label-input100" for="name">
-						<span class="fas fa-id_card"></span>
+					<input class="input100" id="nome" type="text" name="nome" placeholder="Nome">
+					<label class="label-input100" for="nome">
+						<span class="fas fa-id-card"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Username obbligatorio">
-					<input class="input100" id="username" type="text" name="username" placeholder="Nome utente">
-					<label class="label-input100" for="username">
+        <div class="wrap-input100 validate-input">
+					<input class="input100" id="nome_utente" type="text" name="nome_utente" placeholder="Nome utente">
+					<label class="label-input100" for="nome_utente">
 						<span class="fas fa-user-alt"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
-					<input class="input100" id="password" type="password" name="password" placeholder="Password">
-					<label class="label-input100" for="password">
-						<span class="fas fa-key"></span>
-					</label>
-				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
-					<input class="input100" id="cellulare" type="password" name="cellulare" placeholder="Cellulare">
+        <div class="wrap-input100 validate-input">
+					<input class="input100" id="cellulare" type="cellulare" name="cellulare" placeholder="Cellulare">
 					<label class="label-input100" for="cellulare">
 						<span class="fas fa-mobile-alt"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
-					<input class="input100" id="cittadinanza" type="password" name="cittadinanza" placeholder="Cittadinanza">
-					<label class="label-input100" for="cittadinanza">
-						<span class="fas fa-flag"></span>
-					</label>
-				</div>
+        </form>
 
         <div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">

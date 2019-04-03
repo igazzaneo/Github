@@ -4,23 +4,76 @@
 
     <script type='text/javascript'>
 
+      var latitudine = getValueFromLocalStorage('latitudine');
+      var longitudine = getValueFromLocalStorage('longitudine');
+
       var map = new GMaps({
           div: '#mapid5',
-          lat: 42.4156077,
-          lng: 12.0972389
+          lat: latitudine,
+          lng: longitudine,
+          zoom: 10,
       });
 
-      /*map.drawRoute({
-        origin: [42.4156077,12.0972389],
-        destination: [42.585280, 11.933396],
+      var latlngs = [{lat:latitudine, lng:longitudine}, {lat:"42.511", lng:"11.625"}];
+
+      for (var i in latlngs) {
+
+        var latlng = new google.maps.LatLng(latlngs[i].lat, latlngs[i].lng);
+
+        map.addMarker({
+          lat: latlngs[i].lat,
+          lng: latlngs[i].lng,
+
+        });
+      }
+
+      /*
+      var marginiMappa = new google.maps.LatLngBounds();
+
+      var latlngs = [{lat:latitudine, lng:longitudine}, {lat:"42.511", lng:"11.625"}];
+
+      for (var i in latlngs) {
+
+        var latlng = new google.maps.LatLng(latlngs[i].lat, latlngs[i].lng);
+
+        /*var marker = new google.maps.Marker({
+          position: latlng,
+          map: map,
+        });
+
+        marginiMappa.extend(latlng);
+
+      }*/
+
+
+
+      // Center on city
+      //map.setCenter(center);
+
+      // Center on center map bounds
+      //map.setCenter(marginiMappa.getCenter());
+
+      /*google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+        this.setZoom(map.getZoom()-1);
+
+        if (this.getZoom() > 15) {
+          this.setZoom(15);
+        }
+      });
+      map.fitBounds(marginiMappa);*/
+
+      map.drawRoute({
+        origin: [latitudine,longitudine],
+        destination: [42.511,11.625],
         travelMode: 'driving',
         strokeColor: '#131540',
         strokeOpacity: 0.6,
         strokeWeight: 6
-      });*/
+      });
 
-      map.travelRoute({
-        origin: [42.4156077,12.0972389],
+
+      /*map.travelRoute({
+        origin: [latitudine,longitudine],
         destination: [42.585280, 11.933396],
         travelMode: 'driving',
         step: function(e) {
@@ -34,7 +87,7 @@
             });
           });
         }
-      });
+      });*/
 
     </script>
 

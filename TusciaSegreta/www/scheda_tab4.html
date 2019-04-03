@@ -1,6 +1,6 @@
 <ons-page id="Scelta">
 
-  <div id="mapid2" style="height: 50%"></div>
+  <div id="mapid2" style="height: 40%"></div>
 
   <script type='text/javascript'>
 
@@ -42,67 +42,346 @@
       innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
     };
 
-    var map = new L.Map('mapid2',{
-        center: new L.LatLng(42.511,11.625),
-        zoom: 13,
-        layers: [roads]
-    });
+    var percorso = {
+      icon: 'fas fa-hiking',
+      /*iconShape: 'marker',*/
+      borderColor: '#000000',
+      borderWidth: 2,
+      iconSize: [30, 30],
+      /*popupAnchor: [100, -10],*/
+      popupAnchor: [15, -7],
+      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+    };
 
-    var marker = L.marker([42.5083426,11.6216097], {
-      icon: L.BeautifyIcon.icon(albergo),
-      draggable: false
-    }).bindPopup("<b>Bed and Breakfast Montecalvo</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(map);
+    var altro = {
+      icon: 'fas fa-archway',
+      /*iconShape: 'marker',*/
+      borderColor: '#000000',
+      borderWidth: 2,
+      iconSize: [30, 30],
+      /*popupAnchor: [100, -10],*/
+      popupAnchor: [15, -7],
+      innerIconStyle: 'font-size:20px;padding-top:4px;color: #000000'
+    };
 
-    L.marker([42.5048292,11.6244851], {
+    var ristorantiLayer = L.layerGroup();
+
+    var alberghiLayer = L.layerGroup();
+
+    var altroLayer = L.layerGroup();
+
+    // Ristoranti
+    L.marker([42.5429779,11.7524407], {
       icon: L.BeautifyIcon.icon(ristorante),
       draggable: false
-    }).bindPopup("<b>Agriturismo Rimininello</b><br /><img src='img/percorsi/eremo/foto1.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star4_5'>&nbsp;</span></li></ul></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(map);
+    }).bindPopup("<b>Trattoria da Salvatore</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
 
+    L.marker([42.5443869,11.7542646], {
+      icon: L.BeautifyIcon.icon(ristorante),
+      draggable: false
+    }).bindPopup("<b>Ranuccio Ii Il Ristorante Di Rendina Carmela</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+
+    L.marker([42.5430115,11.759157], {
+      icon: L.BeautifyIcon.icon(ristorante),
+      draggable: false
+    }).bindPopup("<b>Ristorante Pizzeria La Fiaba</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+
+    L.marker([42.5485465,11.7238484], {
+      icon: L.BeautifyIcon.icon(ristorante),
+      draggable: false
+    }).bindPopup("<b>Pizzeria del Sole</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+
+    L.marker([42.5464611,11.7394451], {
+      icon: L.BeautifyIcon.icon(ristorante),
+      draggable: false
+    }).bindPopup("<b>Ristorante Osteria Unicorno</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(ristorantiLayer);
+
+    // Bed and breakfast
+    L.marker([42.5497755,11.7269168], {
+      icon: L.BeautifyIcon.icon(albergo),
+      draggable: false
+    }).bindPopup("<b>B&B Il Gelsomino</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+
+    L.marker([42.5490681,11.7240522], {
+      icon: L.BeautifyIcon.icon(albergo),
+      draggable: false
+    }).bindPopup("<b>Bed and Breakfast Residenza Farnese</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+
+    L.marker([42.5444219,11.7516173], {
+      icon: L.BeautifyIcon.icon(albergo),
+      draggable: false
+    }).bindPopup("<b>B&B Castrum</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+
+    L.marker([42.5506449,11.7268525], {
+      icon: L.BeautifyIcon.icon(albergo),
+      draggable: false
+    }).bindPopup("<b>B&B Il bottino</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+
+    L.marker([42.5494357,11.7267666], {
+      icon: L.BeautifyIcon.icon(albergo),
+      draggable: false
+    }).bindPopup("<b>Ostello Ortensi</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(alberghiLayer);
+
+    // altre attività
+    L.marker([42.5440272,11.7568503], {
+      icon: L.BeautifyIcon.icon(altro),
+      draggable: false
+    }).bindPopup("<b>Museo Civico 'Pietro e Turiddo Lotti'</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(altroLayer);
+
+    L.marker([42.5494633,11.7276893], {
+      icon: L.BeautifyIcon.icon(altro),
+      draggable: false
+    }).bindPopup("<b>Museo Civico 'Ferrante Rittatore Vonwiller'</b><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(altroLayer);
+
+    var map = new L.Map('mapid2',{
+        center: new L.LatLng(42.511,11.625),
+        zoom: 10,
+        layers: [roads, ristorantiLayer, alberghiLayer, altroLayer]
+    });
+    // Marker del percorso
+    L.marker([42.511,11.625], {
+      icon: L.BeautifyIcon.icon(percorso),
+      draggable: false
+    }).bindPopup("<b>Eremo di Poggio Conte</b><br /><img src='img/percorsi/eremo/foto2.jpg' width='130px'><br/><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div><br/><div class=\"divTable\"><div class=\"divTableRow\"><div class=\"divTableHead1\">Facile</div><div class=\"divTableHead2\">2,1 Km</div><div class=\"divTableHead3\">25 m</div></div></div><br/><a href='#' onclick=\"fn.load('scheda.html')\">Vai alla scheda</a>").addTo(map);
 
     var baseLayers = {
         "Standard": roads,
         "Satellite": satellite,
         "Altimetria": terrain,
-        "Ibrido": hybrid
+        "Ibrido": hybrid,
+
     };
 
-    L.control.layers(baseLayers).addTo(map);
+    var overlays = {
+        "Ristoranti": ristorantiLayer,
+        "Alberghi": alberghiLayer,
+        "Altre attività": altroLayer,
+    };
+
+    L.control.layers(baseLayers, overlays).addTo(map);
 
   </script>
   <ons-list>
     <ons-list-header>L'eremo di Poggio Conte</ons-list-header>
-    <ons-list-item>
+    <ons-list-item expandable id="item1" onclick="openSection(1)">
       <div class="left">
         <ons-icon modifier="bed" icon="fa-bed" class="list-item__icon" tappable></ons-icon>
       </div>
-      <div class="center">
-        Dove dormire
+      Dove dormire
+      <div class="expandable-content">
+          <div style="content">
+            <table style="width: 100%;">
+            <tbody>
+            <tr>
+              <td style="font-weight: bold;" colspan="3">B&B Il gelsomino</td>
+            </tr>
+            <tr>
+              <td colspan="3"></td>
+            </tr>
+            <tr>
+              <td colspan="3"></td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div><hr class="style-three"></div>
+          <div style="content">
+            <table style="width: 100%;">
+            <tbody>
+            <tr>
+              <td style="font-weight: bold;" colspan="3">Bed and Breakfast Residenza Farnese</td>
+            </tr>
+            <tr>
+              <td colspan="3">Via Giovan Battista Passeri, 165, 01010 Farnese VT</td>
+            </tr>
+            <tr>
+              <td colspan="3">https://www.residenzafarnese.net/</td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div><hr class="style-three"></div>
+          <div style="content">
+            <table style="width: 100%;">
+            <tbody>
+            <tr>
+              <td style="font-weight: bold;" colspan="3">B & B Castrum</td>
+            </tr>
+            <tr>
+              <td colspan="3">Via del Fiore, 73, 01010 Ischia di Castro VT</td>
+            </tr>
+            <tr>
+              <td colspan="3"></td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div><hr class="style-three"></div>
+          <div style="content">
+            <table style="width: 100%;">
+            <tbody>
+            <tr>
+              <td style="font-weight: bold;" colspan="3">B & B Il bottino</td>
+            </tr>
+            <tr>
+              <td colspan="3">Corso Vittorio Emanuele Terzo 8 A/b, 01010 Farnese VT</td>
+            </tr>
+            <tr>
+              <td colspan="3">https://www.facebook.com/trattoriadasalvatorecossu/</td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div><hr class="style-three"></div>
+          <div style="content">
+            <table style="width: 100%;">
+            <tbody>
+            <tr>
+              <td style="font-weight: bold;" colspan="3">Ostello Ortensi</td>
+            </tr>
+            <tr>
+              <td colspan="3">Via, Colle S. Martino, 75, 01010 Farnese VT</td>
+            </tr>
+            <tr>
+              <td colspan="3"></td>
+            </tr>
+            </tbody>
+            </table>
+          </div>
+          <div><hr class="style-three"></div>
       </div>
     </ons-list-item>
-
-    <ons-list-item>
+    <ons-list-item expandable id="item2" onclick="openSection(2)">
       <div class="left">
         <ons-icon modifier="food" icon="fa-utensils" class="list-item__icon" tappable></ons-icon>
       </div>
-      <div class="center">
-        Dove mangiare
+      Dove mangiare
+      <div class="expandable-content">
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Trattoria da Salvatore</td>
+          </tr>
+          <tr>
+            <td colspan="3">Piazza Regina Margherita 13 Ischia di Castro (VT) </td>
+          </tr>
+          <tr>
+            <td colspan="3">https://www.facebook.com/trattoriadasalvatorecossu/</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Ranuccio Ii Il Ristorante Di Rendina Carmela</td>
+          </tr>
+          <tr>
+            <td colspan="3">Piazza Immacolata, 26, 01010 Ischia di Castro VT</td>
+          </tr>
+          <tr>
+            <td colspan="3">http://ranuccio-ii.thefork.rest/</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Ristorante Pizzeria La Fiaba</td>
+          </tr>
+          <tr>
+            <td colspan="3">Via Roma, 107, 01010 Ischia di Castro VT</td>
+          </tr>
+          <tr>
+            <td colspan="3">http://www.ristorantepizzerialafiaba.com/</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Piazzetta del Sole</td>
+          </tr>
+          <tr>
+            <td colspan="3">Via XX Settembre, 129, 01010 Farnese VT</td>
+          </tr>
+          <tr>
+            <td colspan="3">http://www.piazzettadelsole.com/</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Ristorante Osteria Unicorno</td>
+          </tr>
+          <tr>
+            <td colspan="3">SP47, KM. 7, 01010 Farnese VT</td>
+          </tr>
+          <tr>
+            <td colspan="3">http://www.ilpoderedimarfisa.it/osteria-unicorno-farnese/</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
       </div>
     </ons-list-item>
-    <ons-list-item>
+    <ons-list-item expandable id="item3" onclick="openSection(3)">
       <div class="left">
-        <ons-icon modifier="other" icon="fa-shopping-cart" class="list-item__icon" tappable></ons-icon>
+        <ons-icon modifier="other" icon="fa-archway" class="list-item__icon" tappable></ons-icon>
       </div>
-      <div class="center">
-        Altre attività
+      Altre attività
+      <div class="expandable-content">
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Museo Civico "Pietro e Turiddo Lotti"</td>
+          </tr>
+          <tr>
+            <td colspan="3">Piazza Cavalieri Vittorio Veneto, 5, 01010 Ischia di Castro VT</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
+        <div style="content">
+          <table style="width: 100%;">
+          <tbody>
+          <tr>
+            <td style="font-weight: bold;" colspan="3">Museo Civico "Ferrante Rittatore Vonwiller"</td>
+          </tr>
+          <tr>
+            <td colspan="3">Via Colle S. Martino, 1, 01010 Farnese VT</td>
+          </tr>
+          </tbody>
+          </table>
+        </div>
+        <div><hr class="style-three"></div>
       </div>
     </ons-list-item>
-    <ons-list-item>
+
+
+    <!--ons-list-item>
       <div class="left">
         <ons-icon modifier="parking" icon="fa-parking" class="list-item__icon" tappable></ons-icon>
       </div>
       <div class="center">
         Parcheggio
       </div>
-    </ons-list-item>
+    </ons-list-item-->
   </ons-list>
 </ons-page>

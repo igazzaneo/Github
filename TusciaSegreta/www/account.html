@@ -19,36 +19,47 @@
     <ons-card>
 
       <div style="content">
-        <form id="registrazione">
-        <div class="wrap-input100 validate-input" data-validate="Indirizzo email obbligatorio">
+        <form id="registrazioneForm">
+        <div class="wrap-input100 validate-input">
 					<input class="input100" id="email" type="text" name="email" placeholder="Indirizzo email">
 					<label class="label-input100" for="email">
 						<span class="fas fa-at"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Indirizzo email obbligatorio">
+        <div class="wrap-input100 validate-input">
 					<input class="input100" id="username" type="text" name="username" placeholder="Nome utente">
 					<label class="label-input100" for="username">
 						<span class="fas fa-user-alt"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Password obbligatoria">
+        <div class="wrap-input100 validate-input">
 					<input class="input100" id="password" type="password" name="password" placeholder="Password">
 					<label class="label-input100" for="password">
 						<span class="fas fa-key"></span>
 					</label>
 				</div>
-        <div class="wrap-input100 validate-input" data-validate="Inserire preferibilmente il numero di telefono">
+        <div class="wrap-input100 validate-input">
 					<input class="input100" id="cellulare" type="text" name="cellulare" placeholder="Cellulare">
 					<label class="label-input100" for="cellulare">
 						<span class="fas fa-mobile-alt"></span>
 					</label>
 				</div>
-
+        <div class="wrap-input100 validate-input">
+					<input class="input100" id="cognome" type="text" name="cognome" placeholder="Cognome">
+					<label class="label-input100" for="cellulare">
+						<span class="fas fa-id-card"></span>
+					</label>
+				</div>
+        <div class="wrap-input100 validate-input">
+					<input class="input100" id="nome" type="text" name="nome" placeholder="Nome">
+					<label class="label-input100" for="cellulare">
+						<span class="fas fa-id-card"></span>
+					</label>
+				</div>
         <div class="container-contact100-form-btn">
 					<div class="wrap-contact100-form-btn">
 						<div class="contact100-form-bgbtn"></div>
-						<button type="button" id="submitButton" class="contact100-form-btn" onclick="registrazioneDaApp()">Registrati</button>
+						<button type="button" id="registerButton" class="contact100-form-btn" onclick="registrazioneDaApp()">Registrati</button>
 					</div>
 				</div>
         </form>
@@ -65,6 +76,7 @@
         </div>
         <br/>
         <div align="left">Continuando accetti i termini di servizio, le Norme sulla privacy e le Norme sull'utilizzo dei cookie di TusciaSegreta.</div>
+        <br/><br/>
       </div>
     </ons-card>
 </ons-page>

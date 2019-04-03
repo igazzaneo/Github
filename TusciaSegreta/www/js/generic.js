@@ -6,15 +6,35 @@
   };
 
   window.fn.load = function(page) {
-    var content = document.getElementById('content');
-    var menu = document.getElementById('menu');
-    content.load(page)
-      .then(menu.close.bind(menu));
+
+    if(document.getElementById('mapid') != null)
+    {
+      if(page != 'map.html') {
+        var content = document.getElementById('content');
+        var menu = document.getElementById('menu');
+        content.load(page).then(menu.close.bind(menu));
+      }
+
+    } else {
+      var content = document.getElementById('content');
+      var menu = document.getElementById('menu');
+      content.load(page).then(menu.close.bind(menu));
+    }
+
   };
 
   window.fn.gotoPage = function(page) {
-    var content = document.getElementById('content');
-    content.load(page);
+
+    if(document.getElementById('mapid') != null)
+    {
+      if(page != 'map.html') {
+        var content = document.getElementById('content');
+        content.load(page);
+      }
+    } else {
+      var content = document.getElementById('content');
+      content.load(page);
+    }
   };
 
   var login = function() {
@@ -43,5 +63,7 @@
       document.querySelector('#item2').hideExpansion();
       document.querySelector('#item3').showExpansion();
     }
-    
+
   };
+
+  

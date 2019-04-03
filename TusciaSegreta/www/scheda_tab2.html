@@ -1,6 +1,6 @@
 <ons-page id="Scelta">
 
-    <div id="mapid3" style="width: 100%; height: 60%;"></div>
+    <div id="mapid3" style="width: 100%; height: 50%;"></div>
     <div id="elevation-div" style="width: 100%; height: 35%;"></div>
     <br/>
     <div>
@@ -8,18 +8,18 @@
         <ons-list-item>
           <ons-row>
             <ons-col width="50px"><ons-icon icon="fa-arrow-right" class="list-item__icon"></ons-icon></ons-col>
-            <ons-col>Lunghezza: 3,5 Km</ons-col>
+            <ons-col>Lunghezza: 2,1 Km</ons-col>
             <ons-col width="50px"><ons-icon icon="fa-arrow-up" class="list-item__icon"></ons-icon></ons-col>
-            <ons-col>Dislivello: 500m</ons-col>
+            <ons-col>Dislivello: 50m</ons-col>
           </ons-row>
         </ons-list-item>
 
         <ons-list-item>
           <ons-row>
             <ons-col width="50px"><ons-icon icon="fa-play" rotate="270" class="list-item__icon"></ons-icon></ons-col>
-            <ons-col>Difficoltà: Media</ons-col>
+            <ons-col>Difficoltà: Facile</ons-col>
             <ons-col width="50px"><ons-icon modifier="other" icon="fa-clock" class="list-item__icon"></ons-icon></ons-col>
-            <ons-col>Durata prevista: 1h30m</ons-col>
+            <ons-col>Durata prevista: 25 m</ons-col>
           </ons-row>
         </ons-list-item>
 
@@ -39,6 +39,19 @@
           </ons-row>
         </ons-list-item>
       </ons-list>
+    </div>
+    <br>
+    <div id="commenti">
+      <div>
+        <table style="width: 100%;">
+        <tbody>
+          <tr><td>test ha detto:</td></tr>
+          <tr><td>Testo del commento</td></tr>
+          <tr><td><div id='trail-rating'><ul class='ratings'><li class='average'><span id='rating' class='rating star3_5'>&nbsp;</span></li></ul></div></td></tr>
+        </tbody>
+        </table>
+      </div>
+      <div><hr class="style-three"></div>
     </div>
 
   <script>
@@ -73,8 +86,6 @@
     };
 
     L.control.layers(baseLayers).addTo(map);
-
-
 
     var elevationControl = {
       //url: "https://raruto.github.io/examples/leaflet-elevation/via-emilia.gpx",
